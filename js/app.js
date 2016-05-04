@@ -133,9 +133,9 @@
 app.factory('myService', function($http) {
   var myService = {
     async: function() {
-      var urlBase = 'http://localhost:8000/korisnici/90?token=';
+      var urlBase = 'http://localhost:8000/korisnici/6?token=';
       // $http returns a promise, which has a then function, which also returns a promise
-      var promise = $http.get(urlBase + 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjkwLCJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3Q6ODAwMFwvcHJpamF2YSIsImlhdCI6MTQ2MjM1MjAyOSwiZXhwIjoxNDYyMzU1NjI5LCJuYmYiOjE0NjIzNTIwMjksImp0aSI6ImU1Y2ZjYTI1YWQyN2FlZGI0MWJhOTVlOTk4Mzk5MmFmIn0.JOsIhBaQbpLWakFFYOsqwk1ZDPOh4tCrMwiKB5ISbO4').then(function (response) {
+      var promise = $http.get(urlBase + 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjkwLCJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3Q6ODAwMFwvcHJpamF2YSIsImlhdCI6MTQ2MjM2MTEzNCwiZXhwIjoxNDYyMzY0NzM0LCJuYmYiOjE0NjIzNjExMzQsImp0aSI6ImRlZjc1ZGE2ZWE2YzdiYWY5NDk3YjBmNjk3NjhhNDk0In0.thfKqANsWjUISJDfQuHb3DynV0IYrirHqRk8z13OagY').then(function (response) {
         // The then function here is an opportunity to modify the response
         console.log(response);
         // The return value gets picked up by the then in the controller.
@@ -161,6 +161,18 @@ app.controller('KorisnikController', function( myService,$scope) {
         $scope.admin={"color":"yellow"};
     if(easypick.korisnik.ban)
         $scope.ban={"color":"red"};
+    
+    if(easypick.korisnik.telefon!=null)
+        $scope.telefon=easypick.korisnik.telefon;
+    
+    
+    if(easypick.korisnik.grad!=null && easypick.korisnik.drzava!=null)
+        $scope.lokacija=easypick.korisnik.drzava +', '+easypick.korisnik.grad;    
+    else if(easypick.korisnik.grad!=null)
+        $scope.lokacija=easypick.korisnik.grad;
+    else if(easypick.korisnik.drzava!=null)
+        $scope.lokacija=easypick.korisnik.drzava;
+           
   });
   
 }); 
