@@ -1,10 +1,10 @@
 <div class="panel panel-default">
   <div class="panel-body">
     <div class="form-container">
-      <form name="resetForm" role="form" ng-controller="LoginController as loginCtrl" ng-submit="resetForm.$valid && loginCtrl.reset()" novalidate>
+      <form name="resetForm" role="form" ng-controller="ResetController as resetCtrl" ng-submit="resetForm.$valid && resetCtrl.resetPass()" novalidate>
       <p>Link za potvrdu ce biti poslan na Vas e-mail</p>
       <div class="form-group">
-        <input type="email" name="email" class="form-control" ng-model="loginCtrl.user.email" placeholder="E-mail"required />
+        <input type="email" name="email" class="form-control" ng-model="resetCtrl.user.email" placeholder="E-mail"required />
         <div class="form-error" ng-show="resetForm.email.$invalid && resetForm.email.$dirty">
           <small>E-mail adresa nije validna</small>
         </div>
