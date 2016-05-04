@@ -82,12 +82,12 @@
 
         });
     };
-
+/*
     this.reset = function(form){
       if(form.$valid){
 
       }
-    };
+    };  */
 
     this.typeOfUser = function() {
       
@@ -128,5 +128,118 @@
    };
    
   });
+ 
+ 
+app.factory('myService', function($http) {
+  var myService = {
+    async: function() {
+      var urlBase = 'http://localhost:8000/korisnici/90?token=';
+      // $http returns a promise, which has a then function, which also returns a promise
+      var promise = $http.get(urlBase + 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjkwLCJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3Q6ODAwMFwvcHJpamF2YSIsImlhdCI6MTQ2MjM1MjAyOSwiZXhwIjoxNDYyMzU1NjI5LCJuYmYiOjE0NjIzNTIwMjksImp0aSI6ImU1Y2ZjYTI1YWQyN2FlZGI0MWJhOTVlOTk4Mzk5MmFmIn0.JOsIhBaQbpLWakFFYOsqwk1ZDPOh4tCrMwiKB5ISbO4').then(function (response) {
+        // The then function here is an opportunity to modify the response
+        console.log(response);
+        // The return value gets picked up by the then in the controller.
+        return response.data;
+      });
+      // Return the promise to the controller
+      return promise;
+    }
+  };
+  return myService;
+});
+
+app.controller('KorisnikController', function( myService,$scope) {
+  // Call the async method and then do stuff with what is returned inside our own then function
+  var easypick=this;
+  easypick.korisnik={};
+  myService.async().then(function(data) {
+    easypick.korisnik=data;
+    
+    if(easypick.korisnik.verifikovan)
+        $scope.verifikacija={"color":"green"};
+    if(easypick.korisnik.admin)
+        $scope.admin={"color":"yellow"};
+    if(easypick.korisnik.ban)
+        $scope.ban={"color":"red"};
+  });
+  
+}); 
+ 
+ 
+  
+/*
+app.factory('StudentDataOp', ['$http', function ($http) {
+
+    var urlBase = 'http://localhost:8000/korisnici/90?token=';
+    var StudentDataOp = {};
+
+    StudentDataOp.getStudents = function () {
+        return $http.get(urlBase+'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjkwLCJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3Q6ODAwMFwvcHJpamF2YSIsImlhdCI6MTQ2MjM0ODE0NywiZXhwIjoxNDYyMzUxNzQ3LCJuYmYiOjE0NjIzNDgxNDcsImp0aSI6ImVhOGY1YWM3MTQxMWY4ZTBhMzJkMjcwMjE5N2I4OTY4In0.G9qPjNQNgZDSJmo0aWh4fAA1eodAchEdJy0ssOezujw');
+    };
+   
+    return StudentDataOp;
+
+}]);
+
+app.controller('KorisnikController', function ($scope, StudentDataOp) {
+    var easypick=this;
+    easypick.korisnik={};
+    $scope.status;
+    $scope.students;
+    getStudents();
+    
+
+    function getStudents() {
+        StudentDataOp.getStudents()
+            .success(function (studs) {
+                $scope.students = studs;
+                easypick.korisnik=studs; 
+            })
+            .error(function (error) {
+                $scope.status = 'Unable to load customer data: ' + error.message;
+            });
+    }
+       
+}); */
+
+/*       
+  app.factory('dajKorisnika', ['$http', function($http){
+    return $http.get('http://localhost:8000/korisnici/90?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjkwLCJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3Q6ODAwMFwvcHJpamF2YSIsImlhdCI6MTQ2MjMwOTMyMCwiZXhwIjoxNDYyMzEyOTIwLCJuYmYiOjE0NjIzMDkzMjAsImp0aSI6IjNhOGE0NWJiMGM5MDUzMTBiMDdhM2ZkYzM3NWM3ZjBhIn0.0hgZohyRJKVdUXNXt0kGTXIuD1ihw5AoV7bdwcwgnWs')
+        .success(function(data) {
+          return data;
+        })
+        .error(function(err){
+          return err;
+        });
+  }]); 
+  
+   
+  app.controller('KorisnikController', ['dajKorisnika', '$scope', function(dajKorisnika, $scope){
+    var easypick=this;
+    easypick.korisnik={};
+    
+    dajKorisnika.success(function(data){
+      easypick.korisnik=data; 
+    });  
+      
+         
+    if(easypick.korisnik.verifikovan)
+        $scope.verifikacija={"color":"green"};
+     
+    
+  }]);
+  
+  */
+    
+         
+ 
+  
+    app.controller('ResetController', ['$http', function($http){
+      this.user={};
+      this.resetPass= function() {
+        $http.post('http://localhost:8000/password/email', {email:this.user.email});  
+      };
+      
+    }]);
 
 })();
