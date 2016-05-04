@@ -1,0 +1,85 @@
+body{
+    background-color: #F0F0F0;
+}
+
+.nav{
+    height: 50px;
+    background-color: gray;
+}
+
+.img{
+    background-image: url(../images/slika2.jpg);
+    height: 350px;
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+
+.frame{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: -170px;
+    width: 800px;    
+}
+
+.frame_header{
+    height: 200px;
+    background-color: white;
+    border-style: solid;
+	border-color: lightgray;
+	border-width: 1px;
+}
+
+.korisnik_slika{
+    margin-left: -1px;
+    margin-top: -1px;
+    width:190px;
+    height:200px;
+    float: left;
+}
+
+.info{
+    width: 400px;
+    height: 200px; 
+    float:left;
+    font-size: 10pt;
+    padding-left: 10px;
+    padding-top: 10px;
+}
+
+.ime{
+    font-size: 23pt;
+    padding-bottom: 15px;
+}
+
+.info_dodatno{
+    text-align: right;
+    padding: 12px;
+    color: #D0D0D0  ;
+    width: 150px;
+    height: 200px;
+    float: right;
+    font-size: 10pt;
+    
+}
+
+.button{
+    margin-top:80px;
+    border-radius: 8px;
+    width: 120px;
+    height: 30px;
+    background-color: dodgerblue;
+    color: white;
+    font-weight: bold;
+    border-width: 1px;
+}
+
+.oglasi{
+    margin-top: 15px;
+    border-style: solid;
+	border-color: lightgray;
+	border-width: 1px;
+    padding: 3px;
+    padding-left: 5px;
+    font-size: 12pt;
+    background-color:white;
+}
