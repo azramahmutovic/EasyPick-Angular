@@ -1,18 +1,31 @@
 (function(){
-  var app = angular.module('easypick', ['vcRecaptcha']);
+  var app = angular.module('easypick', ['vcRecaptcha', 'ngRoute']);
 
-   app.controller('NavigationController', function(){
+  // configure our routes
+    app.config(function($routeProvider) {
+        $routeProvider
 
-      this.form = 0;
+            // route for the home page
+            .when('/login', {
+                templateUrl : 'login-form.html',
+                controller  : 'LoginController'
+            })
 
-      this.isSelected = function(form){
-        return this.form === form;
-      };
+            // route for the about page
+            .when('/register', {
+                templateUrl : 'register-form.html',
+                controller  : 'LoginController'
+            })
 
-      this.selectForm = function(form){
-        this.form = form;
-      };
-      
+            // route for the contact page
+            .when('/reset', {
+                templateUrl : 'pass-reset-form.html',
+                controller  : 'LoginController'
+            });
+    });
+
+   app.controller('mainController', function(){
+
    });
 
    app.controller('LoginController', [ 'vcRecaptchaService', '$http', '$window', '$log', function(vcRecaptchaService, $http, $window, $log) {
@@ -104,31 +117,6 @@
     };
 
   }]);
-
-  app.directive('loginForm', function() {
-    return {
-      restrict: 'E',
-      templateUrl: 'login-form.html'
-   };
-
-  });
-
-    app.directive('passResetForm', function() {
-    return {
-      restrict: 'E',
-      templateUrl: 'pass-reset-form.html'
-   };
-   
-  });
-
-  app.directive('registerForm', function() {
-    return {
-      restrict: 'E',
-      templateUrl: 'register-form.html'
-   };
-   
-  });
- 
  
 app.factory('myService', function($http) {
   var myService = {
@@ -164,75 +152,7 @@ app.controller('KorisnikController', function( myService,$scope) {
   });
   
 }); 
- 
- 
-  
-/*
-app.factory('StudentDataOp', ['$http', function ($http) {
 
-    var urlBase = 'http://localhost:8000/korisnici/90?token=';
-    var StudentDataOp = {};
-
-    StudentDataOp.getStudents = function () {
-        return $http.get(urlBase+'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjkwLCJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3Q6ODAwMFwvcHJpamF2YSIsImlhdCI6MTQ2MjM0ODE0NywiZXhwIjoxNDYyMzUxNzQ3LCJuYmYiOjE0NjIzNDgxNDcsImp0aSI6ImVhOGY1YWM3MTQxMWY4ZTBhMzJkMjcwMjE5N2I4OTY4In0.G9qPjNQNgZDSJmo0aWh4fAA1eodAchEdJy0ssOezujw');
-    };
-   
-    return StudentDataOp;
-
-}]);
-
-app.controller('KorisnikController', function ($scope, StudentDataOp) {
-    var easypick=this;
-    easypick.korisnik={};
-    $scope.status;
-    $scope.students;
-    getStudents();
-    
-
-    function getStudents() {
-        StudentDataOp.getStudents()
-            .success(function (studs) {
-                $scope.students = studs;
-                easypick.korisnik=studs; 
-            })
-            .error(function (error) {
-                $scope.status = 'Unable to load customer data: ' + error.message;
-            });
-    }
-       
-}); */
-
-/*       
-  app.factory('dajKorisnika', ['$http', function($http){
-    return $http.get('http://localhost:8000/korisnici/90?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjkwLCJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3Q6ODAwMFwvcHJpamF2YSIsImlhdCI6MTQ2MjMwOTMyMCwiZXhwIjoxNDYyMzEyOTIwLCJuYmYiOjE0NjIzMDkzMjAsImp0aSI6IjNhOGE0NWJiMGM5MDUzMTBiMDdhM2ZkYzM3NWM3ZjBhIn0.0hgZohyRJKVdUXNXt0kGTXIuD1ihw5AoV7bdwcwgnWs')
-        .success(function(data) {
-          return data;
-        })
-        .error(function(err){
-          return err;
-        });
-  }]); 
-  
-   
-  app.controller('KorisnikController', ['dajKorisnika', '$scope', function(dajKorisnika, $scope){
-    var easypick=this;
-    easypick.korisnik={};
-    
-    dajKorisnika.success(function(data){
-      easypick.korisnik=data; 
-    });  
-      
-         
-    if(easypick.korisnik.verifikovan)
-        $scope.verifikacija={"color":"green"};
-     
-    
-  }]);
-  
-  */
-    
-         
- 
   
     app.controller('ResetController', ['$http', function($http){
       this.user={};

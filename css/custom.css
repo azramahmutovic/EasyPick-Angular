@@ -12,6 +12,10 @@ footer {
     margin: 50px 0;
 }
 
+a:hover{
+    text-decoration: none;
+}
+
 .head-default {
     background: url(../images/header_bg.jpg) no-repeat;
     background-position: 0px -275px;
