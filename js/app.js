@@ -55,8 +55,6 @@
 
     this.register = function(){
       
-      var response = vcRecaptchaService.getResponse();
-
       if(vcRecaptchaService.getResponse() === ""){
         //if string is empty
             
@@ -77,16 +75,9 @@
 
       $http.post('http://localhost:8000/korisnici', data).success(function(data){
         
-        if(response.error === 0){
-
-                alert("Successfully verified and signed up the user");
-                $window.localStorage.setItem('token', data.token);
-              $log.debug(angular.toJson(data, true));
-            }
-            else{
-
-                alert("User verification failed");
-            }     
+      alert("Successfully verified and signed up the user");
+      $window.localStorage.setItem('token', data.token);
+      $log.debug(angular.toJson(data, true));
             
       })
       .error(function () {
