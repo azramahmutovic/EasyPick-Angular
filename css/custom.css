@@ -2,6 +2,7 @@ html,
 body {
     height: 100%;
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    background: #eeeeee;
 }
 
 header{
@@ -22,6 +23,7 @@ a:hover{
     background-size: cover;
     background-attachment: fixed;
     min-height: 420px;
+    margin-bottom: 30px;
 }
 
 .header-mask{
@@ -84,8 +86,13 @@ a:hover{
     margin-bottom: 15px;
 }
 
+.form-error{
+    text-align: center;
+}
+
 .form-error small{
     color: red;
+    
 }
 
 /* Responsive Styles */

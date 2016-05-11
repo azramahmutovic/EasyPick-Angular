@@ -5,30 +5,40 @@
     app.config(function($routeProvider) {
         $routeProvider
 
-            // route for the home page
             .when('/login', {
                 templateUrl : 'login-form.html',
                 controller  : 'LoginController'
             })
 
-            // route for the about page
             .when('/register', {
                 templateUrl : 'register-form.html',
                 controller  : 'LoginController'
             })
 
-            // route for the contact page
             .when('/reset', {
                 templateUrl : 'pass-reset-form.html',
                 controller  : 'LoginController'
+            })
+
+            .when('/oglas', {
+                templateUrl : 'novi-oglas.html',
+                controller  : 'OglasController'
             });
     });
 
-   app.controller('mainController', function(){
+   app.controller('mainController', [ '$window', function($window){
 
-   });
+      //brisanje tokena na refresh zbog testa
+      $window.localStorage.removeItem('token');
+      
+      this.userLoggedIn = function(){
+      var token = $window.localStorage.getItem('token');
+      return token ? true : false;
+    };
 
-   app.controller('LoginController', [ 'vcRecaptchaService', '$http', '$window', '$log', function(vcRecaptchaService, $http, $window, $log) {
+   }]);
+
+   app.controller('LoginController', [ 'vcRecaptchaService', '$http', '$window', '$log', '$location', function(vcRecaptchaService, $http, $window, $log, $location) {
     //brisanje tokena na refresh zbog testa
     $window.localStorage.removeItem('token');
     this.user = {};
@@ -43,7 +53,8 @@
 
       $http.post('http://localhost:8000/prijava', data).success(function(data){
         $window.localStorage.setItem('token', data.token);
-            $log.debug(angular.toJson(data, true));
+        $log.debug(angular.toJson(data, true));
+        $location.path('/');
             
       })
       .error(function () {
@@ -159,12 +170,16 @@ app.controller('KorisnikController', function( myService, $scope, $window) {
 }); 
 
   
-    app.controller('ResetController', ['$http', function($http){
-      this.user={};
-      this.resetPass= function() {
-        $http.post('http://localhost:8000/password/email', {email:this.user.email});  
-      };
-      
-    }]);
+  app.controller('ResetController', ['$http', function($http){
+    this.user={};
+    this.resetPass= function() {
+      $http.post('http://localhost:8000/password/email', {email:this.user.email});  
+    };
+    
+  }]);
+
+  app.controller('OglasController', ['$http', function($http){
+    
+  }]);
 
 })();
