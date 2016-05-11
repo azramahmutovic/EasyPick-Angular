@@ -1,0 +1,57 @@
+  <div class="aaa" ng-controller="KorisnikController as korisnikCtrl">
+    <div class="img"></div>
+    <div class="frame">    
+        <div class="container-fluid">
+            
+            <div class="frame_header">
+                <img class="korisnik_slika" src="profilna.jpg">
+                <div class="info">
+                    <p class="ime">{{korisnikCtrl.korisnik.name}}</p>
+                    <p>Email: {{korisnikCtrl.korisnik.email}}</p>
+                    <p>Telefon: {{telefon}}</p>
+                    <p>Lokacija: {{lokacija}}</p>
+                    <p>Datum registracije: {{korisnikCtrl.korisnik.created_at}}</p>
+                </div>
+                <div class="info_dodatno">
+                    <strong ng-style="verifikacija">Verifikovan<br></strong>
+                    <strong ng-style="admin">Admin<br></strong>
+                    <strong ng-style="ban">Ban<br></strong>
+                    <button type="button" class="button" ng-click="navCtrl.selectForm(4)">Posalji poruku!</button>
+                </div> 
+            </div>
+            
+            <section class="section-message" ng-show="navCtrl.isSelected(4)">
+            <message-form></message-form>
+            </section>
+            
+            <div class="oglasi" ng-controller="KorisnikOglasiController as KOCtrl">
+                <p>Korisnik je objavio ukupno {{KOCtrl.oglasi.length}} oglasa.</p>
+                <div class="panel panel-default" ng-repeat="oglas in KOCtrl.oglasi">
+                    <div class="panel-body">
+                        <div class="oglas_naziv">Naziv oglasa: {{oglas.naziv}}</div>
+                        <div class="oglas_tip">Tip oglasa: {{oglas.tip_oglasa}}</div>
+                        <div class="oglas_povrsina">Povrsina oglasa: {{oglas.povrsina}}</div>
+                        <div class="oglas_datum">Oglas objavljen: {{oglas.datum_objave}}</div>
+                        <div class="oglas_cijena">Cijena: {{oglas.cijena}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="favoriti" ng-controller="KorisnikFavoritiController as KFCtrl">
+                <p>Korisnik ima ukupno {{KFCtrl.oglasi.length}} favorita.</p>
+                <div class="panel panel-default" ng-repeat="oglas in KFCtrl.oglasi">
+                    <div class="panel-body">
+                        <div class="oglas_naziv">Naziv oglasa: {{oglas.naziv}}</div>
+                        <div class="oglas_tip">Tip oglasa: {{oglas.tip_oglasa}}</div>
+                        <div class="oglas_povrsina">Povrsina oglasa: {{oglas.povrsina}}</div>
+                        <div class="oglas_datum">Oglas objavljen: {{oglas.datum_objave}}</div>
+                        <div class="oglas_cijena">Cijena: {{oglas.cijena}}</div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    
+  
+  </div>
+
