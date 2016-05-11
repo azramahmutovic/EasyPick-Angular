@@ -1,4 +1,3 @@
-(function(){
   var app = angular.module('easypick', ['vcRecaptcha', 'ngRoute', 'ui.bootstrap']);
 
   // configure our routes
@@ -19,6 +18,10 @@
                 templateUrl : 'pass-reset-form.html',
                 controller  : 'LoginController'
             })
+            
+            .when('/korisnik/:id', {
+  		    controller:'KorisnikController',
+  		    templateUrl:'views/korisnik.html'})
 
             .when('/oglas', {
                 templateUrl : 'novi-oglas.html',
@@ -61,7 +64,7 @@
 
    app.controller('LoginController', [ 'vcRecaptchaService', '$http', '$window', '$log', '$location', function(vcRecaptchaService, $http, $window, $log, $location) {
     //brisanje tokena na refresh zbog testa
-    $window.localStorage.removeItem('token');
+    
     this.user = {};
     this.user.tip = 'korisnik1';
 
@@ -69,7 +72,7 @@
 
     this.login = function() {
 
-
+        $window.localStorage.removeItem('token');
       var data = { email: this.user.email, password: this.user.password};
 
       $http.post('http://localhost:8000/prijava', data).success(function(data){
@@ -141,54 +144,9 @@
 
   }]);
  
-app.factory('myService', function($http, $window) {
-  var myService = {
-    async: function() {
-      var urlBase = 'http://localhost:8000/korisnici/6?token=';
-      // $http returns a promise, which has a then function, which also returns a promise
-      var promise = $http.get(urlBase + $window.localStorage.token).then(function (response) {
-        // The then function here is an opportunity to modify the response
-        console.log(response);
-        // The return value gets picked up by the then in the controller.
-        return response.data;
-      });
-      // Return the promise to the controller
-      return promise;
-    }
-  };
-  return myService;
-});
 
-app.controller('KorisnikController', function( myService, $scope, $window) {
-  // Call the async method and then do stuff with what is returned inside our own then function
-  var easypick=this;
-  easypick.korisnik={};
-  myService.async().then(function(data) {
-    easypick.korisnik=data;
-    
-    if(easypick.korisnik.verifikovan)
-        $scope.verifikacija={"color":"green"};
-    if(easypick.korisnik.admin)
-        $scope.admin={"color":"yellow"};
-    if(easypick.korisnik.ban)
-        $scope.ban={"color":"red"};
-    
-    if(easypick.korisnik.telefon!=null)
-        $scope.telefon=easypick.korisnik.telefon;
-    
-    
-    if(easypick.korisnik.grad!=null && easypick.korisnik.drzava!=null)
-        $scope.lokacija=easypick.korisnik.drzava +', '+easypick.korisnik.grad;    
-    else if(easypick.korisnik.grad!=null)
-        $scope.lokacija=easypick.korisnik.grad;
-    else if(easypick.korisnik.drzava!=null)
-        $scope.lokacija=easypick.korisnik.drzava;
-    
-  
-           
-  });
-  
-}); 
+
+
 
   app.controller('ResetController', ['$http', function($http){
     this.user={};
@@ -230,4 +188,23 @@ app.controller('KorisnikController', function( myService, $scope, $window) {
 
   }]);
 
-})();
+app.controller('porukaController', ['$http', '$window', '$routeParams', function($http, $window, $routeParams){
+      
+      this.poruka={};
+      this.posalji= function() {
+        
+        
+        var urlBase = 'http://localhost:8000/poruke?token=' + $window.localStorage.token;
+        $http.post(urlBase, {tekst: this.poruka.tekst, korisnik2_id: $routeParams.id});  
+      };
+      
+    }]);
+    
+    app.directive('messageForm', function() {
+    return {
+      restrict: 'E',
+      templateUrl: 'message-form.html'
+   };
+     
+   
+  });
