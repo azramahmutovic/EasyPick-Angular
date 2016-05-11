@@ -1,3 +1,4 @@
+(function(){
   var app = angular.module('easypick', ['vcRecaptcha', 'ngRoute', 'ui.bootstrap']);
 
   // configure our routes
@@ -219,5 +220,6 @@ app.controller('porukaController', ['$http', '$window', '$routeParams', function
       templateUrl: 'message-form.html'
    };
      
-   
   });
+    
+})(); 
