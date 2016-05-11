@@ -4,7 +4,7 @@
   	<div class="panel panel-default">
     <div class="panel-body">
       <div class="form-container">
-      	<form name="noviOglasForm" role="form" ng-controller="OglasController as oglasCtrl" novalidate>
+      	<form name="noviOglasForm" role="form" ng-controller="OglasController as oglasCtrl" ng-submit="noviOglasForm.$valid && oglasCtrl.objaviOglas()" novalidate>
       	  <h4>Naslov oglasa</h4>
        	  <div class="form-group">
 	          <input type="text" name="naslov" class="form-control" ng-model="oglasCtrl.oglas.naslov" required />
@@ -13,18 +13,12 @@
 	          </div>
           </div>
           <h4>Tip nekretnine</h4>
-          <div class="form-group">
-	          <div class="btn-group" data-toggle="buttons">
-			  <label class="btn btn-primary active">
-			    <input type="radio" name="tip" id="kuca" ng-model="oglasCtrl.oglas.tip" autocomplete="off" checked> Kuća
-			  </label>
-			  <label class="btn btn-primary">
-			    <input type="radio" name="tip" id="stan" ng-model="oglasCtrl.oglas.tip" autocomplete="off"> Stan
-			  </label>
-			  <label class="btn btn-primary">
-			    <input type="radio" name="tip" id="soba" ng-model="oglasCtrl.oglas.tip" autocomplete="off"> Soba
-			  </label>
-			</div>
+         <div class="form-group">
+	         <div class="btn-group">
+	        <label class="btn btn-primary" ng-model="oglasCtrl.oglas.tip" btn-radio="'Kuca'">Kuća</label>
+	        <label class="btn btn-primary" ng-model="oglasCtrl.oglas.tip" btn-radio="'Stan'">Stan</label>
+	        <label class="btn btn-primary" ng-model="oglasCtrl.oglas.tip" btn-radio="'Soba'">Soba</label>
+	    	</div>
 		</div>
 		<h4>Površina</h4>
 		<div class="form-group">
@@ -53,12 +47,12 @@
 		</div>
 		<h4>Lokacija</h4>
 		<div class="form-group">
-		  <select class="form-control">
+		  <select class="form-control" ng-model="oglasCtrl.oglas.drzava">
 		  	<option value="" selected disabled>Država</option>
-		    <option>Bosna i Hercegovina</option>
-		    <option>Srbija</option>
-		    <option>Crna Gora</option>
-		    <option>Hrvatska</option>
+		    <option value="Bosna i Hercegovina">Bosna i Hercegovina</option>
+		    <option value="Srbija">Srbija</option>
+		    <option value="Crna Gora">Crna Gora</option>
+		    <option value="Hrvatska">Hrvatska</option>
 		  </select>
 		</div>
 		<div class="form-group">

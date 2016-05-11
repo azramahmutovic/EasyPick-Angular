@@ -1,8 +1,8 @@
 (function(){
-  var app = angular.module('easypick', ['vcRecaptcha', 'ngRoute']);
+  var app = angular.module('easypick', ['vcRecaptcha', 'ngRoute', 'ui.bootstrap']);
 
   // configure our routes
-    app.config(function($routeProvider) {
+    app.config(function($routeProvider, $httpProvider) {
         $routeProvider
 
             .when('/login', {
@@ -24,13 +24,34 @@
                 templateUrl : 'novi-oglas.html',
                 controller  : 'OglasController'
             });
+        // Registruj interceptor.    
+        $httpProvider.interceptors.push('AuthInterceptor');
+    });
+
+    //Interceptor koji svakom requestu u header dodaje token
+    app.factory('AuthInterceptor', function ($window, $q) {
+      return {
+          request: function(config) {
+              config.headers = config.headers || {};
+              if ($window.localStorage.getItem('token')) {
+                  config.headers.Authorization = 'Bearer ' + $window.localStorage.getItem('token');
+              }
+              return config || $q.when(config);
+          },
+          response: function(response) {
+              if (response.status === 401) {
+                  // TODO: Redirect user to login page.
+              }
+              return response || $q.when(response);
+          }
+      };
     });
 
    app.controller('mainController', [ '$window', function($window){
 
       //brisanje tokena na refresh zbog testa
       $window.localStorage.removeItem('token');
-      
+
       this.userLoggedIn = function(){
       var token = $window.localStorage.getItem('token');
       return token ? true : false;
@@ -169,7 +190,6 @@ app.controller('KorisnikController', function( myService, $scope, $window) {
   
 }); 
 
-  
   app.controller('ResetController', ['$http', function($http){
     this.user={};
     this.resetPass= function() {
@@ -178,8 +198,36 @@ app.controller('KorisnikController', function( myService, $scope, $window) {
     
   }]);
 
-  app.controller('OglasController', ['$http', function($http){
+  app.controller('OglasController', ['$http', '$window', '$log', function($http, $window, $log){
     
+    this.oglas = {};
+
+    this.objaviOglas = function(){
+
+      var data = {
+      'naziv': this.oglas.naslov,
+      'status_oglasa':'aktivan',
+      'tip_oglasa': this.oglas.tip,
+      'povrsina' : this.oglas.povrsina,
+      'cijena': this.oglas.cijena,
+      'grad' : this.oglas.grad,
+      'adresa' : this.oglas.adresa
+      
+    }
+
+    $http.post('http://localhost:8000/oglasi', data).success(function(data){
+        
+      alert("Oglas unesen");
+      $log.debug(angular.toJson(data, true));
+            
+      })
+      .error(function () {
+            $log.debug(angular.toJson(data, true));
+
+        });
+    };
+  
+
   }]);
 
 })();
