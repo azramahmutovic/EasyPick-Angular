@@ -1,0 +1,43 @@
+
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+
+
+<div >
+
+
+           
+            <!-- angular templating -->
+            <!-- this is where content will be injected -->
+         
+            <div   class="row">
+     <div ng-repeat="oglas in prikazi.oglasi" class="col-sm-4 col-md-3">
+    <div class="thumbnail">
+      <img src="http://charitieshousing.org/wp-content/uploads/2010/06/Front_of_house_thumbnail.jpg" alt="...">
+      <div class="caption">
+        <a ng-href='#/oglas/{{oglas.id}}' ><h4>{{oglas.naziv}} </h4> </a>
+
+        <img class="povrsina" src="images/povrsina.png">
+        <p id="pov">{{oglas.povrsina}}{{"m²"}}</p>
+        <p id="cijena">  {{oglas.cijena}}{{" KM"}}</p><img class="oko" src="images/eye.png">
+
+        
+        
+        
+      <!--  <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>  !-->
+      </div>
+    </div>
+  </div>
+  
+ </div>
+ 
+  
+ 
+   <span class="glyphicons glyphicons-music"></span>
+
+
+
+
+</div>
+ 
+
+    

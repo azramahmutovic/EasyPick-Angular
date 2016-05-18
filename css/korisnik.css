@@ -1,7 +1,11 @@
-.aaa{
+body{
     background-color: #F0F0F0;
 }
 
+.nav{
+    height: 50px;
+    background-color: gray;
+}
 
 .img{
     background-image: url(../images/slika2.jpg);
@@ -69,7 +73,7 @@
     border-width: 1px;
 }
 
-.oglasi, .favoriti{
+.oglasi{
     margin-top: 15px;
     border-style: solid;
 	border-color: lightgray;
@@ -78,15 +82,4 @@
     padding-left: 5px;
     font-size: 12pt;
     background-color:white;
-}
-
-
-.section-message {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin: -225px 0 0 -180px;
-    width: 360px;
-    height: 450px;
-    text-align: center;
 }
