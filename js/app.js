@@ -110,6 +110,15 @@ oglas.config( function($httpProvider)
             .when('/poruka', {
                 templateUrl : 'message-form.html',
                 controller  : 'porukaController'
+            }).when('/oglass', {
+                templateUrl : 'dodajoglas.html',
+                controller  : 'prikazioglasController',
+                controllerAs: 'prikazi'
+            }).when('/oglas/:id', {
+               templateUrl : 'oglasdetaljno.html',
+                controller  : 'detaljnooglasController',
+                controllerAs: 'detaljno'
+
             });
         // Registruj interceptor.    
         $httpProvider.interceptors.push('AuthInterceptor');
