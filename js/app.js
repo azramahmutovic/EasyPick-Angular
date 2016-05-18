@@ -1,3 +1,4 @@
+
 (function() {
 
 var oglas = angular.module('oglas', ['ngAnimate', 'ui.bootstrap']);
@@ -72,11 +73,14 @@ oglas.config( function($httpProvider)
 })();
 
 
+
+
 (function(){
-  var app = angular.module('easypick', ['vcRecaptcha', 'ngRoute', 'ui.bootstrap','oglas']);
+
+  var app = angular.module('easypick', ['vcRecaptcha', 'ngRoute', 'ui.bootstrap', 'pascalprecht.translate', 'oglas']);
 
   // configure our routes
-    app.config(function($routeProvider, $httpProvider) {
+    app.config(function($routeProvider, $httpProvider, $translateProvider) {
         $routeProvider
 
             .when('/login', {
@@ -93,28 +97,28 @@ oglas.config( function($httpProvider)
                 templateUrl : 'pass-reset-form.html',
                 controller  : 'LoginController'
             })
+            
+            .when('/korisnik/:id', {
+          controller:'KorisnikController',
+          templateUrl:'views/korisnik.html'})
 
             .when('/oglas', {
                 templateUrl : 'novi-oglas.html',
                 controller  : 'OglasController'
-            }).when('/oglass', {
-                templateUrl : 'dodajoglas.html',
-                controller  : 'prikazioglasController',
-                controllerAs: 'prikazi'
-            }).when('/oglas/:id', {
-               templateUrl : 'oglasdetaljno.html',
-                controller  : 'detaljnooglasController',
-                controllerAs: 'detaljno'
-
             })
 
-
-            ;
-
-
-            ;
+            .when('/poruka', {
+                templateUrl : 'message-form.html',
+                controller  : 'porukaController'
+            });
         // Registruj interceptor.    
         $httpProvider.interceptors.push('AuthInterceptor');
+
+        $translateProvider.translations('en', translationsEN);
+        $translateProvider.translations('cro', translationsBHS);
+        $translateProvider.preferredLanguage('cro');
+        $translateProvider.fallbackLanguage('cro');
+
     });
 
     //Interceptor koji svakom requestu u header dodaje token
@@ -136,7 +140,7 @@ oglas.config( function($httpProvider)
       };
     });
 
-   app.controller('mainController', [ '$window', function($window){
+   app.controller('mainController', [ '$window', '$scope', '$translate', function($window, $scope, $translate){
 
       //brisanje tokena na refresh zbog testa
       $window.localStorage.removeItem('token');
@@ -146,11 +150,15 @@ oglas.config( function($httpProvider)
       return token ? true : false;
     };
 
+     $scope.changeLanguage = function (langKey) {
+      $translate.use(langKey);
+    };
+
    }]);
 
    app.controller('LoginController', [ 'vcRecaptchaService', '$http', '$window', '$log', '$location', function(vcRecaptchaService, $http, $window, $log, $location) {
     //brisanje tokena na refresh zbog testa
-    $window.localStorage.removeItem('token');
+    
     this.user = {};
     this.user.tip = 'korisnik1';
 
@@ -158,7 +166,7 @@ oglas.config( function($httpProvider)
 
     this.login = function() {
 
-
+        $window.localStorage.removeItem('token');
       var data = { email: this.user.email, password: this.user.password};
 
       $http.post('http://localhost:8000/prijava', data).success(function(data){
@@ -230,54 +238,9 @@ oglas.config( function($httpProvider)
 
   }]);
  
-app.factory('myService', function($http, $window) {
-  var myService = {
-    async: function() {
-      var urlBase = 'http://localhost:8000/korisnici/6?token=';
-      // $http returns a promise, which has a then function, which also returns a promise
-      var promise = $http.get(urlBase + $window.localStorage.token).then(function (response) {
-        // The then function here is an opportunity to modify the response
-        console.log(response);
-        // The return value gets picked up by the then in the controller.
-        return response.data;
-      });
-      // Return the promise to the controller
-      return promise;
-    }
-  };
-  return myService;
-});
 
-app.controller('KorisnikController', function( myService, $scope, $window) {
-  // Call the async method and then do stuff with what is returned inside our own then function
-  var easypick=this;
-  easypick.korisnik={};
-  myService.async().then(function(data) {
-    easypick.korisnik=data;
-    
-    if(easypick.korisnik.verifikovan)
-        $scope.verifikacija={"color":"green"};
-    if(easypick.korisnik.admin)
-        $scope.admin={"color":"yellow"};
-    if(easypick.korisnik.ban)
-        $scope.ban={"color":"red"};
-    
-    if(easypick.korisnik.telefon!=null)
-        $scope.telefon=easypick.korisnik.telefon;
-    
-    
-    if(easypick.korisnik.grad!=null && easypick.korisnik.drzava!=null)
-        $scope.lokacija=easypick.korisnik.drzava +', '+easypick.korisnik.grad;    
-    else if(easypick.korisnik.grad!=null)
-        $scope.lokacija=easypick.korisnik.grad;
-    else if(easypick.korisnik.drzava!=null)
-        $scope.lokacija=easypick.korisnik.drzava;
-    
-  
-           
-  });
-  
-}); 
+
+
 
   app.controller('ResetController', ['$http', function($http){
     this.user={};
@@ -287,9 +250,11 @@ app.controller('KorisnikController', function( myService, $scope, $window) {
     
   }]);
 
-  app.controller('OglasController', ['$http', '$window', '$log', function($http, $window, $log){
+  app.controller('OglasController', ['$http', '$window', '$log', '$location', function($http, $window, $log, $location){
     
     this.oglas = {};
+
+    this.drzave = ['Bosna i Hercegovina', 'Hrvatska', 'Crna Gora', 'Srbija'];
 
     this.objaviOglas = function(){
 
@@ -299,24 +264,63 @@ app.controller('KorisnikController', function( myService, $scope, $window) {
       'tip_oglasa': this.oglas.tip,
       'povrsina' : this.oglas.povrsina,
       'cijena': this.oglas.cijena,
+      'stanje' : this.oglas.stanje,
+      'drzava' : this.oglas.drzava,
       'grad' : this.oglas.grad,
-      'adresa' : this.oglas.adresa
-      
+      'adresa' : this.oglas.adresa,
+      'voda': this.oglas.voda,
+      'struja': this.oglas.struja,
+      'internet': this.oglas.internet,
+      'grijanje': this.oglas.grijanje,
+      'kablovska': this.oglas.kablovska,
+      'telefon': this.oglas.telefon,
+      'garaza': this.oglas.garaza
+
     }
 
     $http.post('http://localhost:8000/oglasi', data).success(function(data){
         
       alert("Oglas unesen");
-      $log.debug(angular.toJson(data, true));
+        $log.debug(angular.toJson(data, true));
+        //vrati se na pocetnu str
+        $location.path('/');
             
       })
       .error(function () {
             $log.debug(angular.toJson(data, true));
-
+            
         });
     };
   
 
   }]);
 
-})();
+app.controller('porukaController', ['$http', '$window', '$routeParams', function($http, $window, $routeParams){
+      
+      this.poruka={};
+      this.posalji= function() {
+        
+        var urlBase = 'http://localhost:8000/poruke';
+        $http.post(urlBase, {tekst: this.poruka.tekst, korisnik2_id: 52});  
+      };
+      
+    }]);
+
+
+    var translationsEN = {
+    OGLASI: 'Listings',
+    PRIJAVA: 'Login',
+    PRETRAGA: 'Search',
+    PROFIL: 'My profile',
+    OBJAVA: 'Post a listing'
+  };
+   
+  var translationsBHS= {
+    OGLASI: 'Oglasi',
+    PRIJAVA: 'Prijava',
+    PRETRAGA: 'Pretraga',
+    PROFIL: 'Moj Profil',
+    OBJAVA: 'Upis oglasa'
+  };
+
+})(); 

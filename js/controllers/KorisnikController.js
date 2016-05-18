@@ -1,3 +1,6 @@
+
+var app = angular.module('easypick');
+
 app.controller('KorisnikController', function( KorisnikService, $scope, $routeParams) {
   // Call the async method and then do stuff with what is returned inside our own then function
   var easypick=this;

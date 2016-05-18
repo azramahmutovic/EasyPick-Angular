@@ -1,3 +1,5 @@
+var app = angular.module('easypick');
+
 app.factory('KorisnikOglasiService', function($http, $window) {
   var KorisnikOglasiService = {
     async: function(id_korisnika) {
