@@ -9,6 +9,10 @@ header{
 	width: 100%;
 }
 
+nav button{
+    margin: 15px 0px;
+}
+
 footer {
     margin: 50px 0;
 }

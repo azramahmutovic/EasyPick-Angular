@@ -1,8 +1,9 @@
 (function(){
-  var app = angular.module('easypick', ['vcRecaptcha', 'ngRoute', 'ui.bootstrap']);
+
+  var app = angular.module('easypick', ['vcRecaptcha', 'ngRoute', 'ui.bootstrap', 'pascalprecht.translate']);
 
   // configure our routes
-    app.config(function($routeProvider, $httpProvider) {
+    app.config(function($routeProvider, $httpProvider, $translateProvider) {
         $routeProvider
 
             .when('/login', {
@@ -27,9 +28,20 @@
             .when('/oglas', {
                 templateUrl : 'novi-oglas.html',
                 controller  : 'OglasController'
+            })
+
+            .when('/poruka', {
+                templateUrl : 'message-form.html',
+                controller  : 'porukaController'
             });
         // Registruj interceptor.    
         $httpProvider.interceptors.push('AuthInterceptor');
+
+        $translateProvider.translations('en', translationsEN);
+        $translateProvider.translations('cro', translationsBHS);
+        $translateProvider.preferredLanguage('cro');
+        $translateProvider.fallbackLanguage('cro');
+
     });
 
     //Interceptor koji svakom requestu u header dodaje token
@@ -51,7 +63,7 @@
       };
     });
 
-   app.controller('mainController', [ '$window', function($window){
+   app.controller('mainController', [ '$window', '$scope', '$translate', function($window, $scope, $translate){
 
       //brisanje tokena na refresh zbog testa
       $window.localStorage.removeItem('token');
@@ -59,6 +71,10 @@
       this.userLoggedIn = function(){
       var token = $window.localStorage.getItem('token');
       return token ? true : false;
+    };
+
+     $scope.changeLanguage = function (langKey) {
+      $translate.use(langKey);
     };
 
    }]);
@@ -207,19 +223,27 @@ app.controller('porukaController', ['$http', '$window', '$routeParams', function
       this.poruka={};
       this.posalji= function() {
         
-        
-        var urlBase = 'http://localhost:8000/poruke?token=' + $window.localStorage.token;
-        $http.post(urlBase, {tekst: this.poruka.tekst, korisnik2_id: $routeParams.id});  
+        var urlBase = 'http://localhost:8000/poruke';
+        $http.post(urlBase, {tekst: this.poruka.tekst, korisnik2_id: 52});  
       };
       
     }]);
-    
-    app.directive('messageForm', function() {
-    return {
-      restrict: 'E',
-      templateUrl: 'message-form.html'
-   };
-     
-  });
-    
+
+
+    var translationsEN = {
+    OGLASI: 'Listings',
+    PRIJAVA: 'Login',
+    PRETRAGA: 'Search',
+    PROFIL: 'My profile',
+    OBJAVA: 'Post a listing'
+  };
+   
+  var translationsBHS= {
+    OGLASI: 'Oglasi',
+    PRIJAVA: 'Prijava',
+    PRETRAGA: 'Pretraga',
+    PROFIL: 'Moj Profil',
+    OBJAVA: 'Upis oglasa'
+  };
+
 })(); 

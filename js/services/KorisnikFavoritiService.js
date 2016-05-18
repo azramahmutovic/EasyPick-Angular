@@ -1,3 +1,5 @@
+var app = angular.module('easypick');
+
 app.factory('KorisnikFavoritiService', function($http, $window) {
   var KorisnikFavoritiService = {
     async: function(id_korisnika) {

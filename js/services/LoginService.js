@@ -1,3 +1,5 @@
+var app = angular.module('easypick');
+
 app.factory('LoginService', function($http, $window) {
   var LoginService = {
     async: function(user_data) {
