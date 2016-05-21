@@ -4,7 +4,7 @@
         <div class="container-fluid">
             
             <div class="frame_header">
-                <img class="korisnik_slika" src="profilna.jpg">
+                <img class="korisnik_slika" ng-src="{{korisnikCtrl.korisnik.slika1}}">
                 <div class="info">
                     <p class="ime">{{korisnikCtrl.korisnik.name}}</p>
                     <p>Email: {{korisnikCtrl.korisnik.email}}</p>
@@ -16,12 +16,12 @@
                     <strong ng-style="verifikacija">Verifikovan<br></strong>
                     <strong ng-style="admin">Admin<br></strong>
                     <strong ng-style="ban">Ban<br></strong>
-                    <a href="#poruka">Posalji poruku!</a>
+                    <button type="button" class="button" ng-click="showTheForm=!showTheForm">Posalji poruku!</button>
                 </div> 
             </div>
             
-            <section class="section-message" ng-show="navCtrl.isSelected(4)">
-            <message-form></message-form>
+            <section class="section-message" ng-show="showTheForm">
+            <message-form ></message-form>
             </section>
             
             <div class="oglasi" ng-controller="KorisnikOglasiController as KOCtrl">

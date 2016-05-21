@@ -107,10 +107,18 @@ oglas.config( function($httpProvider)
                 controller  : 'OglasController'
             })
 
-            .when('/poruka', {
-                templateUrl : 'message-form.html',
-                controller  : 'porukaController'
+            .when('/oglass', {
+                templateUrl : 'dodajoglas.html',
+                controller  : 'prikazioglasController',
+                controllerAs: 'prikazi'
+            }).when('/oglas/:id', {
+               templateUrl : 'oglasdetaljno.html',
+                controller  : 'detaljnooglasController',
+                controllerAs: 'detaljno'
+
             });
+
+            
         // Registruj interceptor.    
         $httpProvider.interceptors.push('AuthInterceptor');
 
@@ -143,7 +151,7 @@ oglas.config( function($httpProvider)
    app.controller('mainController', [ '$window', '$scope', '$translate', function($window, $scope, $translate){
 
       //brisanje tokena na refresh zbog testa
-      $window.localStorage.removeItem('token');
+     // $window.localStorage.removeItem('token');
 
       this.userLoggedIn = function(){
       var token = $window.localStorage.getItem('token');
@@ -166,7 +174,7 @@ oglas.config( function($httpProvider)
 
     this.login = function() {
 
-        $window.localStorage.removeItem('token');
+      //  $window.localStorage.removeItem('token');
       var data = { email: this.user.email, password: this.user.password};
 
       $http.post('http://localhost:8000/prijava', data).success(function(data){
@@ -295,14 +303,20 @@ oglas.config( function($httpProvider)
 
   }]);
 
-app.controller('porukaController', ['$http', '$window', '$routeParams', function($http, $window, $routeParams){
+app.controller('porukaController', ['PorukaService','$http', '$window', '$routeParams', '$scope', function(PorukaService, $http, $window, $routeParams, $scope){
       
       this.poruka={};
+      
       this.posalji= function() {
         
-        var urlBase = 'http://localhost:8000/poruke';
-        $http.post(urlBase, {tekst: this.poruka.tekst, korisnik2_id: 52});  
+        PorukaService.async(this.poruka.tekst, $routeParams.id).then(function(data) {});
+        //$http.post(urlBase, {tekst: this.poruka.tekst, korisnik2_id: $routeParams.id}); 
+        $scope.showTheForm=false;
+         
+        
       };
+      
+      
       
     }]);
 
@@ -322,5 +336,15 @@ app.controller('porukaController', ['$http', '$window', '$routeParams', function
     PROFIL: 'Moj Profil',
     OBJAVA: 'Upis oglasa'
   };
+  
+  
+  
+  app.directive('messageForm', function() {
+    return {
+      restrict: 'E',
+      templateUrl: 'message-form.html'
+   };
+   });
 
 })(); 
+
