@@ -44,7 +44,7 @@ margin-left: 20%;
 }
 
 .p {
-  margin-left:13%;
+  margin-left:73%;
  margin-bottom: -5%;
   font-size: 20px;
 }
@@ -124,3 +124,29 @@ margin-right: auto;
 
 
 }
+
+.dugme 
+{ margin-left:72%;
+ 
+
+ }
+
+ .panell {
+ margin-left:60%;
+ margin-top:-58.2%;
+
+ }
+
+ .tekst {
+
+  font-size: 20px;
+ }
+
+ .naslov{color: #00004d;
+  font-weight: bold;
+    font-size: 23px;}
+
+ .datum {
+   font-size: 13px;
+
+ }
