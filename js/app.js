@@ -107,14 +107,9 @@ oglas.config( function($httpProvider)
                 controller  : 'OglasController'
             })
 
-<<<<<<< HEAD
+
             .when('/oglass', {
-=======
-            .when('/poruka', {
-                templateUrl : 'message-form.html',
-                controller  : 'porukaController'
-            }).when('/', {
->>>>>>> origin/master
+
                 templateUrl : 'dodajoglas.html',
                 controller  : 'prikazioglasController',
                 controllerAs: 'prikazi'
@@ -158,11 +153,9 @@ oglas.config( function($httpProvider)
    app.controller('mainController', [ '$window', '$scope', '$translate', function($window, $scope, $translate){
 
       //brisanje tokena na refresh zbog testa
-<<<<<<< HEAD
+
      // $window.localStorage.removeItem('token');
-=======
-    //$window.localStorage.removeItem('token');
->>>>>>> origin/master
+
 
       this.userLoggedIn = function(){
       var token = $window.localStorage.getItem('token');
@@ -185,11 +178,9 @@ oglas.config( function($httpProvider)
 
     this.login = function() {
 
-<<<<<<< HEAD
+
       //  $window.localStorage.removeItem('token');
-=======
-     // $window.localStorage.removeItem('token');
->>>>>>> origin/master
+
       var data = { email: this.user.email, password: this.user.password};
 
       $http.post('http://localhost:8000/prijava', data).success(function(data){
