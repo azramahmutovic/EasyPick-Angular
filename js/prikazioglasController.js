@@ -28,6 +28,7 @@ var controller=this;
 
 
 
+
 $http({method:'GET', url:'http://localhost:8000/oglasi/'+$routeParams.id}).success(function(data){
 	controller.oglas=data;
     $scope.oglasi=data.naziv;
@@ -55,6 +56,20 @@ $http({method:'GET', url:'http://localhost:8000/oglasi/'+$routeParams.id}).succe
       text: ['Nice image','Awesome photograph','That is so cool','I love that'][slides.length % 4],
       id: currIndex++
     });
+
+       $http({method:'GET', url:'http://localhost:8000/korisnici/'+controller.oglas.autor_id}).success(function(data2){
+       controller.autor=data2;
+       console.log(data);
+       console.log(controller.autor);
+
+       });
+        
+        $http({method:'GET', url:'http://localhost:8000/oglasi/'+controller.oglas.id+'/lokacija'}).success(function(data2){
+       controller.lokacija=data2;
+       console.log(data);
+       console.log(controller.autor);
+
+       });
 
 }); 
 
@@ -121,8 +136,11 @@ $http({method:'GET', url:'http://localhost:8000/oglasi/'+$routeParams.id}).succe
     
 
   
-
-
+  $scope.posaljiporuku=function(id)
+ {   console.log("poruka");
+    var urlBase = 'http://localhost:8000/poruke';
+        $http.post(urlBase, {tekst: this.sadrzaj, korisnik2_id: id});  
+ }
 
 
 }]) 
