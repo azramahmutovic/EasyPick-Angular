@@ -1,4 +1,4 @@
-angular.module('oglas').controller('prikazioglasController', ['$http','$scope', '$window' , function( $http, $scope, $window){
+angular.module('oglas').controller('prikazioglasController', ['$http','$scope', '$window' , '$log', function( $http, $scope, $window, $log){
 
 
 
@@ -10,9 +10,32 @@ controller.oglasi=[] ;
  
 
 $http({method:'GET', url:'http://localhost:8000/oglasi'}).success(function(data){
-	controller.oglasi=data;
+	controller.oglasi=data;  
+  $scope.totalItems = controller.oglasi.length;
+  $scope.currentPage = 1;
+  $scope.itemsPerPage=8;
+
+
+  $scope.setPage = function (pageNo) {
+    $scope.currentPage = pageNo;
+  };
+
+  $scope.pageChanged = function() {
+    $log.log('Page changed to: ' + $scope.currentPage);
+  };
+
+  $scope.maxSize = 5;
+  $scope.bigTotalItems = 175;
+  $scope.bigCurrentPage = 1;
 	
 	console.log(data);
+
+  $scope.$watch("currentPage + numPerPage", function() {
+    var begin = (($scope.currentPage - 1) * $scope.numPerPage)
+    , end = begin + $scope.numPerPage;
+
+    
+  });
 }); 
 
 
@@ -141,6 +164,10 @@ $http({method:'GET', url:'http://localhost:8000/oglasi/'+$routeParams.id}).succe
     var urlBase = 'http://localhost:8000/poruke';
         $http.post(urlBase, {tekst: this.sadrzaj, korisnik2_id: id});  
  }
+
+
+
+ 
 
 
 }]) 
