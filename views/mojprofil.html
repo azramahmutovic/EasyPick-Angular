@@ -1,4 +1,4 @@
-<div class="frame" ng-controller="KorisnikController as korisnikCtrl">    
+<div class="frame" ng-controller="TrenutniKorisnikController as korisnikCtrl">    
     <div class="container-fluid">
         
         <div class="frame_header">
@@ -14,15 +14,13 @@
                 <strong ng-style="verifikacija">Verifikovan<br></strong>
                 <strong ng-style="admin">Admin<br></strong>
                 <strong ng-style="ban">Ban<br></strong>
-                <button type="button" class="button" ng-click="showTheForm=!showTheForm">Posalji poruku!</button>
+                <button type="button" class="button">Inbox</button>
             </div> 
         </div>
         
-        <section class="section-message" ng-show="showTheForm">
-            <message-form ></message-form>
-        </section>
         
-        <div class="oglasi" ng-controller="KorisnikOglasiController as KOCtrl">
+        
+        <div class="oglasi" ng-controller="TrenKorisnikOglasiController as KOCtrl">
             <p class="broj_oglasa">Korisnik je objavio ukupno {{KOCtrl.oglasi.length}} oglasa.</p>
             <div class="panel panel-default" ng-repeat="oglas in KOCtrl.oglasi">
                 <div class="panel-body">
@@ -42,7 +40,7 @@
                 </div>
             </div>
         </div>
-        <div class="favoriti" ng-controller="KorisnikFavoritiController as KFCtrl">
+        <div class="favoriti" ng-controller="TrenKorisnikFavoritiController as KFCtrl">
             <p class="broj_favorita">Korisnik ima ukupno {{KFCtrl.oglasi.length}} favorita.</p>
             <div class="panel panel-default" ng-repeat="oglas in KFCtrl.oglasi">
                 <div class="panel-body">

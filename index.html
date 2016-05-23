@@ -30,22 +30,23 @@
    
    <!-- Controllers -->
     <script type="text/javascript" src="js/controllers/KorisnikController.js"></script>
+    <script type="text/javascript" src="js/controllers/TrenutniKorisnikController.js"></script>
     <script type="text/javascript" src="js/controllers/KorisnikOglasiController.js"></script>
+    <script type="text/javascript" src="js/controllers/TrenKorisnikOglasiController.js"></script>
     <script type="text/javascript" src="js/controllers/KorisnikFavoritiController.js"></script>
-<<<<<<< HEAD
-    <script type="text/javascript" src="js/controllers/NavigationController.js"></script>
-=======
->>>>>>> origin/master
+    <script type="text/javascript" src="js/controllers/TrenKorisnikFavoritiController.js"></script>
+
     
     <!-- Services -->
     <script type="text/javascript" src="js/services/KorisnikService.js"></script>
+    <script type="text/javascript" src="js/services/ProfilService.js"></script>
     <script type="text/javascript" src="js/services/KorisnikOglasiService.js"></script>
+    <script type="text/javascript" src="js/services/OglasiTrenutnogService.js"></script>
     <script type="text/javascript" src="js/services/LoginService.js"></script>
     <script type="text/javascript" src="js/services/KorisnikFavoritiService.js"></script>
-<<<<<<< HEAD
+    <script type="text/javascript" src="js/services/FavoritiTrenutnogService.js"></script>
     <script type="text/javascript" src="js/services/PorukaService.js"></script>
-=======
->>>>>>> origin/master
+
 
 <script src="js/prikazioglasController.js"></script>
     <link rel="stylesheet" type="text/css" href="css/oglas.css" />
@@ -69,17 +70,13 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav navbar-right">
-             <li ng-show="mainCtrl.userLoggedIn()"><a href="#naslovnica">Naslovnica</a></li>
+            <li ng-show="mainCtrl.userLoggedIn()"><a href="#naslovnica">Naslovnica</a></li>
             <li ng-show="mainCtrl.userLoggedIn()"><a href="#oglas" translate>OBJAVA</a></li>
-<<<<<<< HEAD
-              <li ng-show="mainCtrl.userLoggedIn()"><a href="#oglass">OGLASI</a></li>
-=======
-              
->>>>>>> origin/master
-        
+            <li ng-show="mainCtrl.userLoggedIn()"><a href="#oglass">OGLASI</a></li>
             <li><a href="#" translate>PRETRAGA</a></li>
             <li ng-hide="mainCtrl.userLoggedIn()"><a href="#login" translate>PRIJAVA</a></li>
-            <li ng-show="mainCtrl.userLoggedIn()"><a href="#korisnik/109" translate>PROFIL</a></li>
+            <li ng-show="mainCtrl.userLoggedIn()"><a href="#profil" translate>PROFIL</a></li>
+            <li ng-show="mainCtrl.userLoggedIn()"><a href="#korisnik/109" translate>PROFILpom</a></li>
             <li><button class="btn btn-primary btn-xs" ng-click="changeLanguage('cro')">BHS</button></li>
             <li><button class="btn btn-primary btn-xs" ng-click="changeLanguage('en')">EN</button></li>
             
