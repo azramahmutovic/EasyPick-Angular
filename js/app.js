@@ -158,11 +158,9 @@ oglas.config( function($httpProvider)
 
       //brisanje tokena na refresh zbog testa
 
-<<<<<<< HEAD
+
       //$window.localStorage.removeItem('token');
-=======
-     // $window.localStorage.removeItem('token');
->>>>>>> origin/master
+
 
 
       this.userLoggedIn = function(){
