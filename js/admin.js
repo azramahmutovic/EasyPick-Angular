@@ -3,7 +3,7 @@
 
 var admin = angular.module('admin', ['ngRoute', 'ui.bootstrap']);
 
-admin.config(function($routeProvider) {
+admin.config(function($routeProvider, $httpProvider) {
         $routeProvider
 
             .when('/korisnici', {
@@ -13,8 +13,30 @@ admin.config(function($routeProvider) {
                 templateUrl : 'admin_oglasi.html',
                 controller  : 'AKorisniciController'
             });
+
+          // Registruj interceptor.    
+          $httpProvider.interceptors.push('AuthInterceptorAdmin');
+
         });
 
+   //Interceptor koji svakom requestu u header dodaje token
+    admin.factory('AuthInterceptorAdmin', function ($window, $q) {
+      return {
+          request: function(config) {
+              config.headers = config.headers || {};
+              if ($window.localStorage.getItem('token')) {
+                  config.headers.Authorization = 'Bearer ' + $window.localStorage.getItem('token');
+              }
+              return config || $q.when(config);
+          },
+          response: function(response) {
+              if (response.status === 401) {
+                  // TODO: Redirect user to login page.
+              }
+              return response || $q.when(response);
+          }
+      };
+    });
             
 
 admin.controller('AKorisniciController', ['$http','$scope', '$window' , '$log', function( $http, $scope, $window, $log){
@@ -44,6 +66,20 @@ admin.controller('AKorisniciController', ['$http','$scope', '$window' , '$log', 
 
     
   });
+
+  $scope.korisnici = {};
+
+  $http.get('http://localhost:8000/korisnici').success(function(data){
+        
+      $scope.korisnici = data; 
+      $log.debug(angular.toJson($scope.korisnici, true));
+            
+      })
+      .error(function () {
+            
+
+       });
+    
     
   }]);
 

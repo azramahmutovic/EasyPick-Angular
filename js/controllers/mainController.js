@@ -1,9 +1,20 @@
 var app = angular.module('easypick');
 
-app.controller('mainController', [ '$window', '$scope', '$translate', '$http', function($window, $scope, $translate, $http){
+app.controller('mainController', [ '$window', '$scope', '$translate', '$http', '$log', function($window, $scope, $translate, $http, $log){
 
-    //brisanje tokena na refresh zbog testa
-    //$window.localStorage.removeItem('token');
+    
+    $scope.isAdmin = false;
+
+    $http.get('http://localhost:8000/korisnik').success(function(data){
+        if(data.admin == 1)
+          $scope.isAdmin = true;
+        $log.debug(angular.toJson($scope.isAdmin, true));
+        
+    })
+    .error(function () {
+        $log.debug(angular.toJson(data, true));
+
+    });
 
     this.userLoggedIn = function(){
     var token = $window.localStorage.getItem('token');
@@ -14,21 +25,13 @@ app.controller('mainController', [ '$window', '$scope', '$translate', '$http', f
     $translate.use(langKey);
     };
 
-    this.isAdmin = function() {
-
-      $http.post('http://localhost:8000/korisnik', data).success(function(data){
-          $log.debug(angular.toJson(data, true));
-          return data.admin;
-      })
-      .error(function () {
-          $log.debug(angular.toJson(data, true));
-
-        });
+    this.redirectToPanel = function() {
+      $window.location.href = '/easypick/admin.html';
     };
 
     this.logout = function(){
       $window.localStorage.removeItem('token');
       $window.localStorage.removeItem('user_id');
-    }
+    };
 
    }]);

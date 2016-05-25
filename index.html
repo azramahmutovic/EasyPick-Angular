@@ -80,7 +80,7 @@
             <li ng-show="mainCtrl.userLoggedIn()"><a href="#korisnik/109" translate>PROFIL</a></li>
             <li ng-show="mainCtrl.userLoggedIn()"><a href="#poruke">Moje poruke</a></li>
             <li ng-show="mainCtrl.userLoggedIn()"><a href="#" ng-click="mainCtrl.logout()">Odjavi se</a></li>
-            <li ng-show="mainCtrl.userLoggedIn() && mainCtrl.isAdmin()"><a href="/easypick/admin.html">Admin ploca</a></li>
+            <li ng-show="mainCtrl.userLoggedIn() && isAdmin"><a href="" ng-click="mainCtrl.redirectToPanel()">Admin ploca</a></li>
 
           </ul>
         </div><!-- /.navbar-collapse -->

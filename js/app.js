@@ -106,9 +106,6 @@ oglas.config( function($httpProvider)
 
     this.login = function() {
 
-      //brisanje tokena na refresh zbog testa
-      //$window.localStorage.removeItem('token');
-
       var data = { email: this.user.email, password: this.user.password};
 
       $http.post('http://localhost:8000/prijava', data).success(function(data){
