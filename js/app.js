@@ -87,6 +87,10 @@ oglas.config( function($httpProvider)
                 controller:'KorisnikController',
                 templateUrl:'views/korisnik.html'
             })
+          
+          .when('/profil', {
+                controller:'TrenutniKorisnikController',
+                templateUrl:'views/mojprofil.html'})
 
             .when('/oglas', {
                 templateUrl : 'novi-oglas.html',

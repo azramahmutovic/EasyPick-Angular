@@ -1,15 +1,13 @@
-.aaa{
-    background-color: #F0F0F0;
-}
 
-
+/*
 .img{
     background-image: url(../images/slika2.jpg);
     height: 350px;
     background-size: 100%;
     background-repeat: no-repeat;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
-
+*/
 .frame{
     margin-left: auto;
     margin-right: auto;
@@ -23,6 +21,7 @@
     border-style: solid;
 	border-color: lightgray;
 	border-width: 1px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .korisnik_slika{
@@ -31,6 +30,7 @@
     width:190px;
     height:200px;
     float: left;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .info{
@@ -45,6 +45,7 @@
 .ime{
     font-size: 23pt;
     padding-bottom: 15px;
+    
 }
 
 .info_dodatno{
@@ -67,6 +68,7 @@
     color: white;
     font-weight: bold;
     border-width: 1px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .oglasi, .favoriti{
@@ -74,12 +76,16 @@
     border-style: solid;
 	border-color: lightgray;
 	border-width: 1px;
-    padding: 3px;
+    padding: 10px;
     padding-left: 5px;
     font-size: 12pt;
     background-color:white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
+.broj_oglasa{
+    padding-left: 10px;
+}
 
 .section-message {
     position: absolute;
@@ -89,4 +95,75 @@
     width: 360px;
     height: 450px;
     text-align: center;
+}
+
+#slika_oglasa{
+    height: 150px;
+    width: auto;
+    float: left;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.oglas_mini{
+    float: left;
+    padding-left: 10px;
+    padding-top: 5px;
+    width:280px;
+}
+
+.oglas_naziv{
+    padding-bottom: 10px;
+    font-size: 16pt;
+    
+}
+
+.oglas_tip,.oglas_povrsina{
+    padding: 4px;
+    border-style: solid;
+	border-color: lightgray;
+	border-width: 1px;
+    border-radius: 8px;
+    width: 67%;
+    padding-left: 10px;
+    margin-bottom: 5px;    
+    background-color: #E8E8E8;   
+}
+
+.oglas_datum{
+    padding: 4px;
+    border-style: solid;
+	border-color: lightgray;
+	border-width: 1px;
+    border-radius: 8px;
+    padding-left: 10px;
+    width: 82%;
+    background-color: #E8E8E8;
+}
+
+
+
+.oglas_cijena{
+    float: right;
+    height: 50px;
+    width: 180px;
+    padding-left: 60px;
+    padding-top: 14px;  
+    margin-top:35px; 
+    font-size: 14pt;
+    font-weight: bold;
+    background-image: url(../images/novac.png); 
+    background-repeat: no-repeat;
+    background-size: 180px auto;    
+}
+
+.oglas_detaljnije{
+    float: right;
+    padding-top: 40px;
+    padding-right: 10px;
+}
+
+.broj_oglasa,.broj_favorita{
+    background-color: #E8E8E8;
+    text-align: center;
+    
 }
