@@ -1,10 +1,6 @@
 angular.module('oglas').controller('prikazioglasController', ['$http','$scope', '$window' , '$log', function( $http, $scope, $window, $log){
 
 
-
-
- 
-
 var controller=this;
 controller.oglasi=[] ;
  
