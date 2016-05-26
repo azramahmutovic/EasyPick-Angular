@@ -77,7 +77,9 @@ oglas.config( function($httpProvider)
 
 (function(){
 
-  var app = angular.module('easypick', ['vcRecaptcha', 'ngRoute', 'ui.bootstrap', 'pascalprecht.translate', 'oglas']);
+  var app = angular.module('easypick', ['vcRecaptcha', 'ngRoute', 'ui.bootstrap', 'pascalprecht.translate', 'oglas', 'ngFileUpload', 'cloudinary']);
+
+  
 
   // configure our routes
     app.config(function($routeProvider, $httpProvider, $translateProvider) {
@@ -134,6 +136,16 @@ oglas.config( function($httpProvider)
         $translateProvider.fallbackLanguage('cro');
 
     });
+    
+    
+    
+    app.config(['cloudinaryProvider', function (cloudinaryProvider) {
+        cloudinaryProvider
+        .set("cloud_name", "dntilajra")
+        .set("upload_preset", "x1rpxcm3");
+    }]);
+    
+      
 
     //Interceptor koji svakom requestu u header dodaje token
     app.factory('AuthInterceptor', function ($window, $q) {
@@ -159,7 +171,7 @@ oglas.config( function($httpProvider)
       //brisanje tokena na refresh zbog testa
 
 
-      //$window.localStorage.removeItem('token');
+      $window.localStorage.removeItem('token');
 
 
 
@@ -174,11 +186,12 @@ oglas.config( function($httpProvider)
 
    }]);
 
-   app.controller('LoginController', [ 'vcRecaptchaService', '$http', '$window', '$log', '$location', function(vcRecaptchaService, $http, $window, $log, $location) {
+   app.controller('LoginController', [ 'vcRecaptchaService', '$http', '$window', '$log', '$location','$scope', 'Upload',  function(vcRecaptchaService, $http, $window, $log, $location, $scope, $upload) {
     //brisanje tokena na refresh zbog testa
     
     this.user = {};
     this.user.tip = 'korisnik1';
+    
 
     this.publicKey = "6LfQyB0TAAAAAFrPuH1kkbtrup-M2fKDM4CZrXFU";
 
@@ -201,6 +214,36 @@ oglas.config( function($httpProvider)
 
         });
     };
+    
+    
+    
+    
+    
+    $scope.upload=function(file){
+        $scope.upload = $upload.upload({
+        
+        url: "https://api.cloudinary.com/v1_1/dntilajra/upload",
+            data: {
+              upload_preset: 'x1rpxcm3',
+              tags: 'myphotoalbum',
+              context: 'photo=123',
+              file: file
+            },
+      }).progress(function(evt) {
+        console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
+      }).success(function(data, status, headers, config) {
+        // file is uploaded successfully
+        $window.localStorage.setItem('imageId', data.public_id);
+        
+        console.log(data);
+      });
+    }
+    
+    
+    
+    
+    
+    
 
     this.register = function(){
       
@@ -218,10 +261,11 @@ oglas.config( function($httpProvider)
                 'drzava': this.user.grad,
                 'grad': this.user.grad,
                 'telefon': this.user.telefon,
-                'g-recaptcha-response':vcRecaptchaService.getResponse()  //send g-captcah-reponse to our server
-          }
+                'g-recaptcha-response':vcRecaptchaService.getResponse(), //send g-captcah-reponse to our server
+                'slika1': $window.localStorage.getItem('imageId') 
+            } 
         }
-
+  
       $http.post('http://localhost:8000/korisnici', data).success(function(data){
         
       alert("Successfully verified and signed up the user");

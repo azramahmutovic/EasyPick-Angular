@@ -50,6 +50,9 @@
         <div class="form-group">
           <div vc-recaptcha key="loginCtrl.publicKey" ></div>
         </div>
+        <div class="form-group" ng-controller="LoginController as loginCtrl">
+          <div class="button" ngf-select="upload($file)">Upload on file select</div>
+        </div>
         <input type="submit" value="Registruj se" class="btn btn-primary btn-lg btn-block" />
       </form>
       </div>
