@@ -15,9 +15,9 @@
           <h4>Tip nekretnine</h4>
          <div class="form-group">
 	         <div class="btn-group">
-	        <label class="btn btn-primary" ng-model="oglasCtrl.oglas.tip" btn-radio="'Kuca'">Kuća</label>
-	        <label class="btn btn-primary" ng-model="oglasCtrl.oglas.tip" btn-radio="'Stan'">Stan</label>
-	        <label class="btn btn-primary" ng-model="oglasCtrl.oglas.tip" btn-radio="'Soba'">Soba</label>
+	        <label class="btn btn-primary" ng-model="oglasCtrl.oglas.tip" uib-btn-radio="'Kuca'">Kuća</label>
+	        <label class="btn btn-primary" ng-model="oglasCtrl.oglas.tip" uib-btn-radio="'Stan'">Stan</label>
+	        <label class="btn btn-primary" ng-model="oglasCtrl.oglas.tip" uib-btn-radio="'Soba'">Soba</label>
 	    	</div>
 		</div>
 		<h4>Površina</h4>
@@ -64,29 +64,29 @@
 	     <h4>Dodatne informacije</h4>
 	     <div class="form-group">
 	     	<label class="checkbox-inline">
-			  <input type="checkbox" id="checkbox1" value="voda"> Voda
+			  <input type="checkbox" ng-model="oglasCtrl.oglas.voda" ng-true-value="1" ng-false-value="0"> Voda
 			</label>
 			<label class="checkbox-inline">
-			  <input type="checkbox" id="checkbox2" value="struja"> Struja
+			  <input type="checkbox" ng-model="oglasCtrl.oglas.struja" ng-true-value="1" ng-false-value="0" Struja
 			</label>
 			<label class="checkbox-inline">
-			  <input type="checkbox" id="checkbox3" value="grijanje"> Centralno grijanje
-			</label>
-			</div>
-			<div class="form-group">
-			<label class="checkbox-inline">
-			  <input type="checkbox" id="checkbox4" value="internet"> IT mreža
-			</label>
-			<label class="checkbox-inline">
-			  <input type="checkbox" id="checkbox5" value="kablovska"> Kablovska televizija
+			  <input type="checkbox" ng-model="oglasCtrl.oglas.grijanje" ng-true-value="1" ng-false-value="0"> Centralno grijanje
 			</label>
 			</div>
 			<div class="form-group">
 			<label class="checkbox-inline">
-			  <input type="checkbox" id="checkbox6" value="telefon"> Telefonska instalacija
+			  <input type="checkbox" ng-model="oglasCtrl.oglas.internet" ng-true-value="1" ng-false-value="0"> IT mreža
 			</label>
 			<label class="checkbox-inline">
-			  <input type="checkbox" id="checkbox7" value="garaza"> Garaža
+			  <input type="checkbox" ng-model="oglasCtrl.oglas.kablovska" ng-true-value="1" ng-false-value="0"> Kablovska televizija
+			</label>
+			</div>
+			<div class="form-group">
+			<label class="checkbox-inline">
+			  <input type="checkbox" ng-model="oglasCtrl.oglas.telefon" ng-true-value="1" ng-false-value="0"> Telefonska instalacija
+			</label>
+			<label class="checkbox-inline">
+			  <input type="checkbox" ng-model="oglasCtrl.oglas.garaza" ng-true-value="1" ng-false-value="0"> Garaža
 			</label>
 			</div>
 			<h4>Fotografije</h4>

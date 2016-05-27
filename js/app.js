@@ -5,75 +5,10 @@ var oglas = angular.module('oglas', ['ngAnimate', 'ui.bootstrap']);
 
 oglas.config( function($httpProvider)
 {
-
-
   delete $httpProvider.defaults.headers.common['X-Requested-With'];
-}
+});
 
-
-  );
-
-
-
-
-
-
-
- 
-/*oglas.directive('slider', function ($timeout) {
-  return {
-    restrict: 'AE',
-    replace: true,
-    scope:{
-        images: '='
-    },
-    link: function (scope, elem, attrs) {
-    
-        scope.currentIndex=0;
-
-        scope.next=function(){
-            scope.currentIndex<scope.images.length-1?scope.currentIndex++:scope.currentIndex=0;
-            console.log("pozvano");
-        }; 
-        
-        scope.prev=function(){
-            scope.currentIndex>0?scope.currentIndex--:scope.currentIndex=scope.images.length-1;
-        };
-        
-        scope.$watch('currentIndex',function(){
-            scope.images.forEach(function(image){
-                image.visible=false;
-            });
-            scope.images[scope.currentIndex].visible=true;
-        });
-        
-        /* Start: For Automatic slideshow*/
-        
-        /*var timer;
-        
-        var sliderFunc=function(){
-            timer=$timeout(function(){
-                scope.next();
-                timer=$timeout(sliderFunc,5000);
-            },5000);
-        };
-        
-        sliderFunc();
-        
-        scope.$on('$destroy',function(){
-            $timeout.cancel(timer);
-        });
-        
-        /* End : For Automatic slideshow*/
-        
-    /*},
-    templateUrl:'/easypick/templateurl.html'
-  }
-}); */
 })();
-
-
-
 
 (function(){
 
@@ -101,29 +36,36 @@ oglas.config( function($httpProvider)
             })
             
             .when('/korisnik/:id', {
-          controller:'KorisnikController',
-          templateUrl:'views/korisnik.html'})
+                controller:'KorisnikController',
+                templateUrl:'views/korisnik.html'
+            })
           
           .when('/profil', {
-          controller:'TrenutniKorisnikController',
-          templateUrl:'views/mojprofil.html'})
+                controller:'TrenutniKorisnikController',
+                templateUrl:'views/mojprofil.html'})
 
             .when('/oglas', {
                 templateUrl : 'novi-oglas.html',
                 controller  : 'OglasController'
             })
 
-
             .when('/oglass', {
 
                 templateUrl : 'dodajoglas.html',
                 controller  : 'prikazioglasController',
                 controllerAs: 'prikazi'
-            }).when('/oglas/:id', {
+            })
+
+            .when('/oglas/:id', {
                templateUrl : 'oglasdetaljno.html',
                 controller  : 'detaljnooglasController',
                 controllerAs: 'detaljno'
 
+            })
+
+            .when('/poruke', {
+                templateUrl : 'inbox.html',
+                controller: 'inboxController'
             });
 
             
@@ -166,6 +108,7 @@ oglas.config( function($httpProvider)
       };
     });
 
+
    app.controller('mainController', [ '$window', '$scope', '$translate', function($window, $scope, $translate){
 
       //brisanje tokena na refresh zbog testa
@@ -188,6 +131,7 @@ oglas.config( function($httpProvider)
 
    app.controller('LoginController', [ 'vcRecaptchaService', '$http', '$window', '$log', '$location','$scope', 'Upload',  function(vcRecaptchaService, $http, $window, $log, $location, $scope, $upload) {
     //brisanje tokena na refresh zbog testa
+
     
     this.user = {};
     this.user.tip = 'korisnik1';
@@ -197,19 +141,18 @@ oglas.config( function($httpProvider)
 
     this.login = function() {
 
-
-      //  $window.localStorage.removeItem('token');
-
       var data = { email: this.user.email, password: this.user.password};
 
       $http.post('http://localhost:8000/prijava', data).success(function(data){
         $window.localStorage.setItem('token', data.token);
+        $window.localStorage.setItem('user_id', data.id);
         $log.debug(angular.toJson(data, true));
         $location.path('/');
             
       })
       .error(function () {
             $window.localStorage.removeItem('token');
+            $window.localStorage.removeItem('user_id');
             $log.debug(angular.toJson(data, true));
 
         });
@@ -270,6 +213,7 @@ oglas.config( function($httpProvider)
         
       alert("Successfully verified and signed up the user");
       $window.localStorage.setItem('token', data.token);
+      $window.localStorage.setItem('user_id', data.id);
       $log.debug(angular.toJson(data, true));
             
       })
@@ -279,12 +223,6 @@ oglas.config( function($httpProvider)
 
         });
     };
-/*
-    this.reset = function(form){
-      if(form.$valid){
-
-      }
-    };  */
 
     this.typeOfUser = function() {
       
