@@ -2,16 +2,14 @@
 <div id="content">
 <header>
 <p class="pull-left">Svi korisnici</p> 
- <button type="button" class="btn btn-success btn-xs pull-right">Dodaj korisnika</button>
+ <a ng-href="#dodajkorisnika" type="button" class="btn btn-success btn-xs pull-right">Dodaj korisnika</a>
  </header>
 <br><br><br>
 <div>
 
 
 <div class="row">
-<div class="col-md-1">
-     # 
-      </div>
+
 	<div class="col-md-3">
      Ime i prezime
       </div>
@@ -25,24 +23,24 @@
    <hr>
 
 </div>
-<div class="row">
-	 <div class="col-md-1">
-     1  
-      </div>
+
+<div class="row" ng-repeat="korisnik in korisnici.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
+	
        <div class="col-md-3">
-     <p> Zana Tatar</p>
+     <p> {{korisnik.name}}</p>
      
       </div>
        <div class="col-md-3">
-     <p> 25.06.2016</p>
+     <p> {{korisnik.created_at}}</p>
      
       </div>
      
       <div class="col-md-5">
-      <a class="btn btn-primary btn-xs " href="#" role="button">Vidi&nbsp&nbsp&nbsp </a>
-       <a class="btn btn-success btn-xs " href="#" role="button">Uredi </a>
-        <a class="btn btn-warning btn-xs " href="#" role="button">Banuj </a>
-         <a class="btn btn-danger btn-xs " href="#" role="button">Izbrisi </a>
+      <a class="btn btn-primary btn-xs " ng-href="#korisnik/{{korisnik.id}}" role="button">Vidi&nbsp&nbsp&nbsp </a>
+       <a class="btn btn-success btn-xs " ng-href="#uredikorisnika/{{korisnik.id}}" role="button">Uredi </a>
+        <button class="btn btn-warning btn-xs " ng-click=odbanujkorisnika(korisnik.id) ng-show=korisnik.ban==1>Odobri </button>
+         <button class="btn btn-warning btn-xs " ng-click=banujkorisnika(korisnik.id) ng-show=korisnik.ban!=1>Banuj </button>
+          <button class="btn btn-danger btn-xs " ng-click=izbrisikorisnika(korisnik.id)>Izbrisi </button>
       
       </div>
 
