@@ -11,7 +11,7 @@
 .frame{
     margin-left: auto;
     margin-right: auto;
-    margin-top: -170px;
+    
     width: 800px;    
 }
 
@@ -166,4 +166,46 @@
     background-color: #E8E8E8;
     text-align: center;
     
+}
+
+.thumb {
+    width: auto;
+    height: 45px;
+    margin-top: -135px;
+    margin-left: -120px;
+    position: relative;    
+}
+
+#button_slika{
+    width: 100px;
+    margin-bottom: 10px;    
+}
+
+form .progress {
+    line-height: 15px;
+    
+}
+
+
+.progress {
+    display: inline-block;
+    width: 100px;
+    border: 3px groove #0066FF;
+    position: relative;
+    margin-left: -158px;
+    position: relative;
+    
+    
+        
+}
+
+.progress div {
+    font-size: smaller;
+    background: #00CCFF;
+    width: 0;
+}
+
+#button_slika1{
+    width: 150px;
+    margin-bottom: 10px;    
 }

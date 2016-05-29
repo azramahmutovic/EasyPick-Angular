@@ -49,6 +49,16 @@
         </div>
         <div class="form-group">
           <div vc-recaptcha key="loginCtrl.publicKey" ></div>
+      </div> 
+        </div>
+        <div class="form-group">
+          <div id="button_slika" class="btn btn-primary btn-lg btn-block" ng-model="picFile" ngf-select="upload($file)">Ucitaj sliku</div>
+          <img ng-show="regForm.file.$valid" ngf-thumbnail="picFile" class="thumb">
+          <span class="progress" ng-show="picFile.progress >= 0">
+            <div style="width:{{picFile.progress}}%" 
+              ng-bind="picFile.progress + '%'"></div>
+          </span>
+          
         </div>
         <input type="submit" value="Registruj se" class="btn btn-primary btn-lg btn-block" />
       </form>

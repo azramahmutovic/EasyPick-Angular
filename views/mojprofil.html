@@ -2,7 +2,7 @@
     <div class="container-fluid">
         
         <div class="frame_header">
-            <img class="korisnik_slika" ng-src="{{korisnikCtrl.korisnik.slika1}}">
+            <cl-image  public-id="{{korisnikCtrl.korisnik.slika1}}" class="korisnik_slika"></cl-image>
             <div class="info">
                 <p class="ime">{{korisnikCtrl.korisnik.name}}</p>
                 <p>Email: {{korisnikCtrl.korisnik.email}}</p>
@@ -25,7 +25,7 @@
             <div class="panel panel-default" ng-repeat="oglas in KOCtrl.oglasi">
                 <div class="panel-body">
                     <div class="oglas_naziv"><strong>{{oglas.naziv}}</strong></div>
-                    <img ng-src="{{oglas.slika1}}" alt="" class="img-thumbnail" id="slika_oglasa">
+                    <cl-image  public-id="{{oglas.slika1}}" class="img-thumbnail" id="slika_oglasa"></cl-image>
                     
                     <div class="oglas_mini">
                         
@@ -45,7 +45,7 @@
             <div class="panel panel-default" ng-repeat="oglas in KFCtrl.oglasi">
                 <div class="panel-body">
                     <div class="oglas_naziv"><strong>{{oglas.naziv}}</strong></div>
-                    <img ng-src="{{oglas.slika1}}" alt="" class="img-thumbnail" id="slika_oglasa">
+                    <cl-image  public-id="{{oglas.slika1}}" class="img-thumbnail" id="slika_oglasa"></cl-image>
                     <div class="oglas_mini">
                         <div class="oglas_tip">Tip oglasa: {{oglas.tip_oglasa}}</div>
                         <div class="oglas_povrsina">Povrsina: {{oglas.povrsina}} m²</div>

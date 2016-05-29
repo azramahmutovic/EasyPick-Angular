@@ -90,10 +90,20 @@
 			</label>
 			</div>
 			<h4>Fotografije</h4>
-			<div class="form-group">
-			<input type="file" id="slikaInput">
+				<div class="form-group">
+					<div id="button_slika1" class="btn btn-primary btn-lg btn-block" ng-model="picFile" ngf-select="uploadFiles($files)" multiple>Ucitaj fotografije</div>
+          Fajlovi:
+    				<ul>
+        			<li ng-repeat="f in files" style="font:smaller">
+            		{{f.name}}
+								
+        			</li>
+    				</ul>
+					<br>
+						
+          
 		    </div>
-		    <input type="submit" value="Objavi oglas" class="btn btn-primary btn-lg btn-block"/>
+		   <input type="submit" value="Objavi oglas" class="btn btn-primary btn-lg btn-block"/>
 	     </div>
 	     
       	</form>

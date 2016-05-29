@@ -12,7 +12,9 @@ oglas.config( function($httpProvider)
 
 (function(){
 
-  var app = angular.module('easypick', ['vcRecaptcha', 'ngRoute', 'ui.bootstrap', 'pascalprecht.translate', 'oglas']);
+  var app = angular.module('easypick', ['vcRecaptcha', 'ngRoute', 'ui.bootstrap', 'pascalprecht.translate', 'oglas', 'ngFileUpload', 'cloudinary']);
+
+  
 
   // configure our routes
     app.config(function($routeProvider, $httpProvider, $translateProvider) {
@@ -81,6 +83,15 @@ oglas.config( function($httpProvider)
         $translateProvider.fallbackLanguage('cro');
 
     });
+    
+    
+    app.config(['cloudinaryProvider', function (cloudinaryProvider) {
+        cloudinaryProvider
+        .set("cloud_name", "dntilajra")
+        .set("upload_preset", "x1rpxcm3");
+    }]);
+    
+      
 
     //Interceptor koji svakom requestu u header dodaje token
     app.factory('AuthInterceptor', function ($window, $q) {
@@ -101,7 +112,7 @@ oglas.config( function($httpProvider)
       };
     });
 
-   
+
   app.controller('ResetController', ['$http', function($http){
     this.user={};
     this.resetPass= function() {
@@ -109,10 +120,8 @@ oglas.config( function($httpProvider)
     };
     
   }]);
-
   
-
-app.controller('porukaController', ['PorukaService','$http', '$window', '$routeParams', '$scope', function(PorukaService, $http, $window, $routeParams, $scope){
+  app.controller('porukaController', ['PorukaService','$http', '$window', '$routeParams', '$scope', function(PorukaService, $http, $window, $routeParams, $scope){
       
       this.poruka={};
       
@@ -124,9 +133,7 @@ app.controller('porukaController', ['PorukaService','$http', '$window', '$routeP
          
         
       };
-      
-      
-      
+       
     }]);
 
 
