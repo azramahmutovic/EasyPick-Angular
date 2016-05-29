@@ -36,14 +36,14 @@
 		</div>
 		<h4>Stanje</h4>
 		<div class="form-group">
-		  <select class="form-control">
-		    <option>Useljivo</option>
-		    <option>Potrebno renoviranje</option>
-		    <option>U izgradnji</option>
-		    <option>Uređeno</option>
-		    <option>Održavano</option>
-		    <option>Nije održavano</option>
-		  </select>
+		  <select class="form-control" ng-model="oglasCtrl.oglas.stanje">
+ 		    <option value="Useljivo">Useljivo</option>
+ 		    <option value="Potrebno renoviranje">Potrebno renoviranje</option>
+ 		    <option value="U izgradnji">U izgradnji</option>
+ 		    <option value="Uređeno">Uređeno</option>
+ 		    <option value="Održavano">Održavano</option>
+ 		    <option value="Nije održavano">Nije održavano</option>
+  		  </select>
 		</div>
 		<h4>Lokacija</h4>
 		<div class="form-group">
@@ -67,7 +67,7 @@
 			  <input type="checkbox" ng-model="oglasCtrl.oglas.voda" ng-true-value="1" ng-false-value="0"> Voda
 			</label>
 			<label class="checkbox-inline">
-			  <input type="checkbox" ng-model="oglasCtrl.oglas.struja" ng-true-value="1" ng-false-value="0" Struja
+			  <input type="checkbox" ng-model="oglasCtrl.oglas.struja" ng-true-value="1" ng-false-value="0"> Struja
 			</label>
 			<label class="checkbox-inline">
 			  <input type="checkbox" ng-model="oglasCtrl.oglas.grijanje" ng-true-value="1" ng-false-value="0"> Centralno grijanje
