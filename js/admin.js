@@ -1,7 +1,7 @@
 
 (function() {
 
-var admin = angular.module('admin', ['ngRoute', 'ui.bootstrap']);
+var admin = angular.module('admin', ['ngRoute', 'ui.bootstrap', 'chart.js']);
 
 admin.config(function($routeProvider, $httpProvider) {
         $routeProvider
@@ -20,12 +20,32 @@ admin.config(function($routeProvider, $httpProvider) {
                   controller  : 'AUrediController'
 
 
-            });
+            }).when('/chartovi',
+                {
+                	templateUrl: 'chartovi.html',
+                	controller:'PrikaziChartController'
+                }
+            ).when('/registracije',
+              {
+              	   templateUrl: 'registracije.html',
+                	controller:'PrikaziRegistracijeController'
+
+              }
+            );
 
           // Registruj interceptor.    
           $httpProvider.interceptors.push('AuthInterceptorAdmin');
 
-        });
+        }).config(['ChartJsProvider', function (ChartJsProvider) {
+    // Configure all charts 
+    ChartJsProvider.setOptions({
+      chartColors: ['#FF5252', '#FF8A80'],
+      responsive: false
+    });
+    // Configure all line charts 
+    ChartJsProvider.setOptions('line', {
+      datasetFill: false
+    }); }]);
 
    //Interceptor koji svakom requestu u header dodaje token
     admin.factory('AuthInterceptorAdmin', function ($window, $q) {
@@ -325,7 +345,221 @@ $http.delete('http://localhost:8000/korisnici/admini/'+id).success(function(){
 ]);
 
 
+  admin.controller('PrikaziChartController', ['$scope', '$http','$timeout', function( $scope, $http, $timeout){
+
+  	var d = new Date();
+   var n = d.getDay();
    
+   $scope.oglasi=this;
+
+
+
+   $http({method:'GET', url:'http://localhost:8000/oglasi'}).success(function(data){
+
+     $scope.oglasi=data;
+      $scope.dani = [];
+      $scope.dani.splice(0, 0, 0);
+      $scope.dani.splice(1, 0, 0);
+      $scope.dani.splice(2, 0, 0);
+      $scope.dani.splice(3, 0, 0);
+      $scope.dani.splice(4, 0, 0);
+      $scope.dani.splice(5, 0, 0);
+      $scope.dani.splice(6, 0, 0);
+      
+
+     
+
+
+      
+      angular.forEach($scope.oglasi, function(value,key) {
+      	var d =new Date(value.datum_objave);
+      	var n=d.getDay();
+
+      	if(n==0)  {
+             console.log("n="+ n);
+            var dodaj=$scope.dani[0]+1;
+      		$scope.dani.splice(0, 1, dodaj );
+      		 
+      	} 
+        else	if(n==1)  {
+             console.log("n="+ n);
+            var dodaj=$scope.dani[1]+1;
+      		$scope.dani.splice(1, 1, dodaj );
+      		 
+      	} 
+      		else if(n==2)  {
+             console.log("n="+ n);
+            var dodaj=$scope.dani[2]+1;
+      		$scope.dani.splice(2, 1, dodaj );
+      		 
+      	} 
+        
+        
+
+      	else if(n==3)  {
+             console.log("n="+ n);
+            var dodaj=$scope.dani[3]+1;
+      		$scope.dani.splice(3, 1, dodaj );
+      		 console.log($scope.dani.length);
+      		 
+      	} 
+      		else if(n==4)  {
+             console.log("n="+ n);
+            var dodaj=$scope.dani[4]+1;
+      		$scope.dani.splice(4, 1, dodaj );
+      		console.log($scope.dani.length);
+      		 
+      	} 
+      		else if(n==5)  {
+             console.log("n="+ n);
+            var dodaj=$scope.dani[5]+1;
+      		$scope.dani.splice(5, 1, dodaj );
+      		 
+      	} 
+      		else if(n==6)  {
+             console.log("n="+ n);
+            var dodaj=$scope.dani[6]+1;
+      		$scope.dani.splice(6, 1, dodaj );
+      		 
+      	} 
+      	 });
+
+           $scope.labels = ["Ponedjeljak", "Utorak", "Srijeda", "Četvrtak", "Petak", "Subota", "Nedjelja"];
+        
+          $scope.series = ['Series A'];
+          console.log("Postovi"+$scope.dani.join());
+           
+         $scope.data=[
+    [$scope.dani[1], 
+     $scope.dani[2], 
+     $scope.dani[3], 
+     $scope.dani[4],
+     $scope.dani[5], 
+     $scope.dani[6],
+     $scope.dani[0]]
+  ]; 
+      	  
+   
+     
+
+     });
+       
+
+
+    
+   
+
+
+
+}]);   
+
+  admin.controller('PrikaziRegistracijeController', ['$scope', '$http','$timeout', function( $scope, $http, $timeout){
+
+  	var d = new Date();
+   var n = d.getDay();
+   
+   $scope.registracije=this;
+
+
+
+   $http({method:'GET', url:'http://localhost:8000/korisnici'}).success(function(data){
+
+     $scope.registracije=data;
+      $scope.dani = [];
+      $scope.dani.splice(0, 0, 0);
+      $scope.dani.splice(1, 0, 0);
+      $scope.dani.splice(2, 0, 0);
+      $scope.dani.splice(3, 0, 0);
+      $scope.dani.splice(4, 0, 0);
+      $scope.dani.splice(5, 0, 0);
+      $scope.dani.splice(6, 0, 0);
+      
+
+     
+
+
+      
+      angular.forEach($scope.registracije, function(value,key) {
+      	var d =new Date(value.created_at);
+      	var n=d.getDay();
+
+      	if(n==0)  {
+             console.log("n="+ n);
+            var dodaj=$scope.dani[0]+1;
+      		$scope.dani.splice(0, 1, dodaj );
+      		 
+      	} 
+        else	if(n==1)  {
+             console.log("n="+ n);
+            var dodaj=$scope.dani[1]+1;
+      		$scope.dani.splice(1, 1, dodaj );
+      		 
+      	} 
+      		else if(n==2)  {
+             console.log("n="+ n);
+            var dodaj=$scope.dani[2]+1;
+      		$scope.dani.splice(2, 1, dodaj );
+      		 
+      	} 
+        
+        
+
+      	else if(n==3)  {
+             console.log("n="+ n);
+            var dodaj=$scope.dani[3]+1;
+      		$scope.dani.splice(3, 1, dodaj );
+      		 console.log($scope.dani.length);
+      		 
+      	} 
+      		else if(n==4)  {
+             console.log("n="+ n);
+            var dodaj=$scope.dani[4]+1;
+      		$scope.dani.splice(4, 1, dodaj );
+      		console.log($scope.dani.length);
+      		 
+      	} 
+      		else if(n==5)  {
+             console.log("n="+ n);
+            var dodaj=$scope.dani[5]+1;
+      		$scope.dani.splice(5, 1, dodaj );
+      		 
+      	} 
+      		else if(n==6)  {
+             console.log("n="+ n);
+            var dodaj=$scope.dani[6]+1;
+      		$scope.dani.splice(6, 1, dodaj );
+      		 
+      	} 
+      	 });
+
+           $scope.labels = ["Ponedjeljak", "Utorak", "Srijeda", "Četvrtak", "Petak", "Subota", "Nedjelja"];
+        
+          $scope.series = ['Series A'];
+          console.log("Postovi"+$scope.dani.join());
+           
+         $scope.data=[
+    [$scope.dani[1], 
+     $scope.dani[2], 
+     $scope.dani[3], 
+     $scope.dani[4],
+     $scope.dani[5], 
+     $scope.dani[6],
+     $scope.dani[0]]
+  ]; 
+      	  
+   
+     
+
+     });
+       
+
+
+    
+   
+
+
+
+}]);   
 
 
 })();
