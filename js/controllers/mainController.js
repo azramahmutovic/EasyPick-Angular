@@ -21,7 +21,7 @@ app.controller('mainController', [ '$window', '$scope', '$translate', '$http', '
     };
 
     this.redirectToPanel = function() {
-      $window.location.href = '/easypick/admin.html';
+      $window.location.href = 'admin.html';
     };
 
     this.logout = function(){

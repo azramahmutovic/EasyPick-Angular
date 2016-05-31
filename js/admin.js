@@ -31,6 +31,18 @@ admin.config(function($routeProvider, $httpProvider) {
                 	controller:'PrikaziRegistracijeController'
 
               }
+              ).when('/verifikovani',
+              {
+              	   templateUrl: 'views/statistikaVerifikovanih.html',
+                	controller:'StatistikaVerifikovanihController'
+
+              }
+              ).when('/reg',
+              {
+              	   templateUrl: 'views/statistikaRegistracije.html',
+                	controller:'RegPoMjesecuController'
+
+              }
             ).when('/oglasiChart',
               {
                    templateUrl: 'oglasi-chart.html',
@@ -635,5 +647,76 @@ $http.delete('http://localhost:8000/korisnici/admini/'+id).success(function(){
   }]);
  
  
+ 
+ 
+ admin.controller('StatistikaVerifikovanihController', ['$scope', '$http','$timeout', function( $scope, $http, $timeout){
+
+   
+   $scope.verifikovani=this;
+
+
+
+   $http({method:'GET', url:'http://localhost:8000/korisnici'}).success(function(data){
+
+     $scope.verifikovani=data;
+      var i=1;
+      var k=1;
+      var j=$scope.verifikovani.length;  
+      angular.forEach($scope.verifikovani, function(file) {
+      	 if(file.verifikovan) i++;
+         if(file.ban) k++;          
+      	 });
+         i--;
+         k--;
+
+           $scope.labels = ["Verifikovani korisnici", "Banovani korisnici", "Ukupno korisnika"];
+        
+       
+         $scope.data=
+          [i, k, j]
+         ;   
+     
+
+     });
+
+
+}]); 
+
+
+
+
+admin.controller('RegPoMjesecuController', ['$scope', '$http', '$timeout', function( $scope, $http, $timeout){
+   
+    $scope.users= {};
+    $scope.labels = [];
+    
+    var mjeseci = [12];
+    for(i=0; i < 12; i++){
+      mjeseci[i] = 0;
+    }
+
+    $http.get('http://localhost:8000/korisnici').success(function(data){
+
+      $scope.users=data;
+        
+      angular.forEach($scope.users, function(mjesec) {
+
+        var date = new Date(mjesec.created_at);
+        var month = date.getMonth();
+        mjeseci[month]++;
+  
+      });
+
+      $scope.labels = ["Januar", "Februar", "Mart", "April", "Maj", "Juni", "Juli", "August", "Septembar", "Oktobar", "Novembar", "Decembar"];
+         
+    })
+
+    .error(function () {
+      console.log("Http get korisnici greska");
+    });
+
+    $scope.data=[mjeseci];
+        
+  }]);
 
 })();
