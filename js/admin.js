@@ -31,6 +31,18 @@ admin.config(function($routeProvider, $httpProvider) {
                 	controller:'PrikaziRegistracijeController'
 
               }
+            ).when('/oglasiChart',
+              {
+                   templateUrl: 'oglasi-chart.html',
+                   controller:'PrikaziOglasChartController'
+
+              }
+            ).when('/prijaveChart',
+              {
+                   templateUrl: 'prijave-chart.html',
+                   controller:'PrikaziPrijaveChartController'
+
+              }
             );
 
           // Registruj interceptor.    
@@ -551,15 +563,77 @@ $http.delete('http://localhost:8000/korisnici/admini/'+id).success(function(){
      
 
      });
-       
+  }]);
 
-
-    
+  
+  admin.controller('PrikaziOglasChartController', ['$scope', '$http', '$timeout', function( $scope, $http, $timeout){
    
+    $scope.oglasi= {};
+    $scope.labels = [];
+    $scope.series = ['Series C'];
+    var mjeseci = [12];
+    for(i=0; i < 12; i++){
+      mjeseci[i] = 0;
+    }
 
+    $http.get('http://localhost:8000/oglasi').success(function(data){
 
+      $scope.oglasi=data;
+        
+      angular.forEach($scope.oglasi, function(value,key) {
 
-}]);   
+        var date = new Date(value.datum_objave);
+        var month = date.getMonth();
+        mjeseci[month]++;
+  
+      });
 
+      $scope.labels = ["Januar", "Februar", "Mart", "April", "Maj", "Juni", "Juli", "August", "Septembar", "Oktobar", "Novembar", "Decembar"];
+         
+    })
+
+    .error(function () {
+      console.log("Http get oglasi greska");
+    });
+
+    $scope.data=[mjeseci];
+        
+  }]);
+
+  admin.controller('PrikaziPrijaveChartController', ['$scope', '$http', '$timeout', function( $scope, $http, $timeout){
+   
+    $scope.prijave= {};
+    $scope.labels = [];
+    $scope.series = ['Series C'];
+    var mjeseci = [12];
+    for(i=0; i < 12; i++){
+      mjeseci[i] = 0;
+    }
+
+    $http.get('http://localhost:8000/prijava/info').success(function(data){
+
+      $scope.prijave=data;
+        
+      angular.forEach($scope.prijave, function(value,key) {
+
+        var date = new Date(value.login_time);
+        var month = date.getMonth();
+        mjeseci[month]++;
+  
+      });
+
+      $scope.labels = ["Januar", "Februar", "Mart", "April", "Maj", "Juni", "Juli", "August", "Septembar", "Oktobar", "Novembar", "Decembar"];
+         
+    })
+
+    .error(function () {
+      console.log("Prijave Chart greska");
+    });
+
+    $scope.data=[mjeseci];
+        
+  }]);
+ 
+ 
 
 })();
