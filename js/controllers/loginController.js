@@ -2,7 +2,6 @@ var app = angular.module('easypick');
 
    app.controller('LoginController', [ 'vcRecaptchaService', '$http', '$window', '$log', '$location','$scope', 'Upload',  function(vcRecaptchaService, $http, $window, $log, $location, $scope, $upload) {
     
-    console.log("usao u kontroler");
     this.user = {};
     this.user.tip = 'korisnik1';
     this.isAdmin = {};
@@ -13,6 +12,7 @@ var app = angular.module('easypick');
 
       var data = { email: this.user.email, password: this.user.password};
       var id = {};
+      this.isAdmin = false;
 
       $http.post('http://localhost:8000/prijava', data).success(function(data){
         $window.localStorage.setItem('token', data.token);
@@ -40,11 +40,8 @@ var app = angular.module('easypick');
 
     this.register = function(){
       
-      console.log("usao u funkciju");
-
       if(vcRecaptchaService.getResponse() === ""){
         //if string is empty
-          console.log("usao u if");  
         }
 
         else{

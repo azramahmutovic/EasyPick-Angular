@@ -61,10 +61,10 @@
 <script src="js/prikazioglasController.js"></script>
     <link rel="stylesheet" type="text/css" href="css/oglas.css" />
   </head>
-  <body ng-controller="mainController as mainCtrl">
+  <body ng-controller="mainController as mainCtrl" class="glavna">
   <header>
-    <nav class="navbar navbar-default">
-      <div class="container-fluid">
+    <nav class="navbar navbar-default ">
+      <div class="container-fluid menuboja">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -73,25 +73,24 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">EasyPick</a>
+          <a class="navbar-brand " href="#" >EasyPick</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
+
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav navbar-right" ng-controller="LoginController as loginCtrl">
 
-            <li><button class="btn btn-primary btn-xs" ng-click="changeLanguage('cro')">BHS</button></li>
+            <li class="slova" ><button class="btn btn-primary btn-xs " ng-click="changeLanguage('cro')" >BHS</button></li>
             <li><button class="btn btn-primary btn-xs" ng-click="changeLanguage('en')">EN</button></li>
-            <li ng-show="mainCtrl.userLoggedIn()"><a href="#naslovnica">Naslovnica</a></li>
-            <li ng-show="mainCtrl.userLoggedIn()"><a href="#oglas" translate>OBJAVA</a></li>
-            <li ng-show="mainCtrl.userLoggedIn()"><a href="#oglass">OGLASI</a></li>
-            <li><a href="#pretraga" translate>PRETRAGA</a></li>
-            <li ng-hide="mainCtrl.userLoggedIn()"><a href="#login" translate>PRIJAVA</a></li>
-            <li ng-show="mainCtrl.userLoggedIn()"><a href="#profil" translate>PROFIL</a></li>
-            <li ng-show="mainCtrl.userLoggedIn()"><a href="#poruke">Moje poruke</a></li>
-            <li ng-show="mainCtrl.userLoggedIn()"><a href="#" ng-click="mainCtrl.logout()">Odjavi se</a></li>
+            <li ng-show="mainCtrl.userLoggedIn()"><a  href="#oglass">Naslovnica</a></li>
+            <li ng-show="mainCtrl.userLoggedIn()"><a  href="#oglas" translate>OBJAVA</a></li>
+            <li><a  href="#pretraga" translate>PRETRAGA</a></li>
+            <li ng-hide="mainCtrl.userLoggedIn()"><a   href="#login" translate>PRIJAVA</a></li>
+            <li ng-show="mainCtrl.userLoggedIn()"><a  href="#profil" translate>PROFIL</a></li>
+            <li ng-show="mainCtrl.userLoggedIn()"><a  href="#poruke">Moje poruke</a></li>
             <li ng-show=" mainCtrl.userLoggedIn() && loginCtrl.isAdmin"><a href="" ng-click="mainCtrl.redirectToPanel()">Admin ploca</a></li>
-
+             <li ng-show="mainCtrl.userLoggedIn()"><a id="odj" href="#" ng-click="mainCtrl.logout()">Odjavi se</a></li>
           </ul>
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
@@ -109,5 +108,13 @@
     </div>
     
 </div>
-</body>
+
+
+ 
+</body> 
+    
+    
+  
+
+ 
 </html>

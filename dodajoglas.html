@@ -11,15 +11,15 @@
          
     <div   class="row">
      <div ng-repeat="oglas in prikazi.oglasi.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))"  class="col-sm-4 col-md-3">
-    <div class="thumbnail">
-      <img src="http://charitieshousing.org/wp-content/uploads/2010/06/Front_of_house_thumbnail.jpg" alt="...">
+    <div class="thumbnail"  >
+      <cl-image  public-id="{{oglas.slika1}}" class="img-thumbnail" id="pozicija" ></cl-image>
       <div class="caption">
         <a ng-href='#/oglas/{{oglas.id}}' ><h4>{{oglas.naziv}} </h4> </a>
 
-        <img class="povrsina" src="images/povrsina.png">
-        <p id="pov">{{oglas.povrsina}}{{"m²"}}</p>
-        <p id="cijena">  {{oglas.cijena}}{{" KM"}}</p><img class="oko" src="images/eye.png">
-
+        
+        
+        <p class="pull-left">Površina: {{oglas.povrsina}}{{"m²"}}</p><br>
+        <p id="cijena" class="pull-right">  {{oglas.cijena}}{{" KM"}}</p>
         
         
         

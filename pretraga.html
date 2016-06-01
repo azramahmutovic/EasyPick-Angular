@@ -52,22 +52,27 @@
 <!--rezultati pretrage-->
 <div class="col-md-10">
 	<div   class="row" ng-controller="prikazioglasController as prikazi">
-	<div ng-repeat="oglas in prikazi.oglasi.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage)) | filter:search | filter:minCijena  | filter:maxCijena | filter:minPovrsina | filter:maxPovrsina"  class="col-sm-4 col-md-3">
-	<div class="thumbnail">
-	  <img src="http://charitieshousing.org/wp-content/uploads/2010/06/Front_of_house_thumbnail.jpg" alt="...">
-	  <div class="caption">
-	    <a ng-href='#/oglas/{{oglas.id}}' ><h4>{{oglas.naziv}} </h4> </a>
-	    <img class="povrsina" src="images/povrsina.png">
-	    <p id="pov">{{oglas.povrsina}}{{"m²"}}</p>
-	    <p id="cijena">  {{oglas.cijena}}{{" KM"}}</p><img class="oko" src="images/eye.png">
-	  </div>
-	</div>
-	</div>
-	</div>
+	<div ng-repeat="oglas in prikazi.oglasi.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))"  class="col-sm-2 col-md-4">
+    <div class="thumbnail"  >
+      <cl-image  public-id="{{oglas.slika1}}" class="img-thumbnail" id="pozicija" ></cl-image>
+      <div class="caption">
+        <a ng-href='#/oglas/{{oglas.id}}' ><h4>{{oglas.naziv}} </h4> </a>
 
+        
+        
+        <p class="pull-left">Površina: {{oglas.povrsina}}{{"m²"}}</p><br>
+        <p id="cijena" class="pull-right">  {{oglas.cijena}}{{" KM"}}</p>
+        
+        
+        
+      <!--  <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>  !-->
+      </div>
+    </div>
+  </div>
+</div>
  
 	<div>
 	<uib-pagination boundary-links="true" total-items="totalItems"  items-per-page="itemsPerPage" ng-model="currentPage" class="pagination-sm pozicijapaginacije" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></uib-pagination>
 	</div>
-</div>
+
 </section>
