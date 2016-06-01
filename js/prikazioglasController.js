@@ -157,8 +157,9 @@ $http({method:'GET', url:'http://localhost:8000/oglasi/'+$routeParams.id}).succe
   
   $scope.posaljiporuku=function(id)
  {   console.log("poruka");
-    var urlBase = 'http://localhost:8000/poruke';
+      var urlBase = 'http://localhost:8000/poruke';
         $http.post(urlBase, {tekst: this.sadrzaj, korisnik2_id: id});  
+        this.sadrzaj = {};
  }
 
 
