@@ -78,7 +78,7 @@
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <ul class="nav navbar-nav navbar-right">
+          <ul class="nav navbar-nav navbar-right" ng-controller="LoginController as loginCtrl">
 
             <li><button class="btn btn-primary btn-xs" ng-click="changeLanguage('cro')">BHS</button></li>
             <li><button class="btn btn-primary btn-xs" ng-click="changeLanguage('en')">EN</button></li>
@@ -90,7 +90,7 @@
             <li ng-show="mainCtrl.userLoggedIn()"><a href="#profil" translate>PROFIL</a></li>
             <li ng-show="mainCtrl.userLoggedIn()"><a href="#poruke">Moje poruke</a></li>
             <li ng-show="mainCtrl.userLoggedIn()"><a href="#" ng-click="mainCtrl.logout()">Odjavi se</a></li>
-            <li ng-show=" mainCtrl.userLoggedIn() && isAdmin"><a href="" ng-click="mainCtrl.redirectToPanel()">Admin ploca</a></li>
+            <li ng-show=" mainCtrl.userLoggedIn() && loginCtrl.isAdmin"><a href="" ng-click="mainCtrl.redirectToPanel()">Admin ploca</a></li>
 
           </ul>
         </div><!-- /.navbar-collapse -->

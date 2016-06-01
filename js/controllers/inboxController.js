@@ -5,7 +5,7 @@ app.controller('inboxController', [ '$http', '$window', '$scope', '$log', 'Poruk
 	$scope.poruke = [];
 	$scope.messages = [];
 	$scope.showMessageBox = false;
-  	$scope.poruka={};
+  $scope.poruka={};
 
 
 	var id = $window.localStorage.getItem('user_id');
@@ -52,6 +52,8 @@ app.controller('inboxController', [ '$http', '$window', '$scope', '$log', 'Poruk
 	  $scope.posalji = function(korisnik) {
 	    
 	    PorukaService.async($scope.poruka.tekst, $scope.poruka.rcv).then(function(data) {});
+      $scope.dajPoruke($window.localStorage.getItem('user_id'),$scope.poruka.rcv);
+      $scope.poruka.tekst = {};
 	  };
 
  }]);

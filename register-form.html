@@ -8,7 +8,7 @@
           <div class="form-error" ng-show="regForm.$submitted && regForm.name.$error.required">
             <small>Unesite svoje ime</small>
           </div>
-        </div>
+        </div> 
         <div class="form-group">
           <input type="email" name="email" class="form-control" ng-model="loginCtrl.user.email" placeholder="E-mail"required />
           <div class="form-error" ng-show="regForm.email.$invalid && regForm.email.$dirty">
@@ -29,7 +29,7 @@
           <div class="form-error" ng-show="regForm.$submitted && regForm.password.$error.required">
             <small>Lozinka je obavezna</small>
           </div>
-        </div>
+        </div> 
         <div class="form-group">
           <label class="radio-inline">
           <input type="radio" name="inlineRadioOptions" ng-model="loginCtrl.user.tip" value="korisnik1"> Trazim smjestaj
@@ -48,8 +48,7 @@
           <input type="text" class="form-control" ng-model="loginCtrl.user.telefon" placeholder="Telefon"/>
         </div>
         <div class="form-group">
-          <div vc-recaptcha key="loginCtrl.publicKey" ></div>
-      </div> 
+          <div vc-recaptcha key="loginCtrl.publicKey" ></div> 
         </div>
         <div class="form-group">
           <div id="button_slika" class="btn btn-primary btn-lg btn-block" ng-model="picFile" ngf-select="upload($file)">Ucitaj sliku</div>
