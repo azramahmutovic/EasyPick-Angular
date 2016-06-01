@@ -150,3 +150,36 @@ margin-right: auto;
    font-size: 13px;
 
  }
+
+ .thumbnail
+ {
+  width:400px;
+  height:300px;
+ }
+
+
+ #pozicija {
+width:250px;
+height:200px;
+
+ }
+
+ .navbar-nav>li>a {
+ color : #00b3ca!important;
+}
+
+.glavna {
+ background-color:#f3f3f4;
+}
+
+.menuboja{
+  background-color:#2f4050;
+
+}
+.navbar-header>a,.navbar-nav>li>a#odj {
+  color:#f3f3f4!important;
+}
+.navbar-header>a:hover,.navbar-nav>li>a:hover, .navbar-nav>li>a:hover#odj
+{
+ color:black!important;
+}

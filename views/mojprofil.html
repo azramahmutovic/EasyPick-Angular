@@ -14,7 +14,7 @@
                 <strong ng-style="verifikacija">Verifikovan<br></strong>
                 <strong ng-style="admin">Admin<br></strong>
                 <strong ng-style="ban">Ban<br></strong>
-                <button type="button" class="button">Inbox</button>
+               
             </div> 
         </div>
         
@@ -24,7 +24,8 @@
             <p class="broj_oglasa">Korisnik je objavio ukupno {{KOCtrl.oglasi.length}} oglasa.</p>
             <div class="panel panel-default" ng-repeat="oglas in KOCtrl.oglasi">
                 <div class="panel-body">
-                    <div class="oglas_naziv"><strong>{{oglas.naziv}}</strong></div>
+                 <a ng-href='#/oglas/{{oglas.id}}' ><h4>{{oglas.naziv}} </h4> </a>
+
                     <cl-image  public-id="{{oglas.slika1}}" class="img-thumbnail" id="slika_oglasa"></cl-image>
                     
                     <div class="oglas_mini">
@@ -35,8 +36,8 @@
                         <div class="oglas_datum">Oglas objavljen: {{oglas.datum_objave | date:"dd/MM/yyyy"}}</div>
                         
                     </div>
-                    <div class="oglas_cijena">{{oglas.cijena}} KM</div>
-                    <a href="" class="oglas_detaljnije">Pogledaj detaljnije</a>
+                    <div id="cijena" class="pull-right" >{{oglas.cijena}} KM</div>
+                    
                 </div>
             </div>
         </div>
@@ -44,7 +45,7 @@
             <p class="broj_favorita">Korisnik ima ukupno {{KFCtrl.oglasi.length}} favorita.</p>
             <div class="panel panel-default" ng-repeat="oglas in KFCtrl.oglasi">
                 <div class="panel-body">
-                    <div class="oglas_naziv"><strong>{{oglas.naziv}}</strong></div>
+                    <a ng-href='#/oglas/{{oglas.id}}' ><h4>{{oglas.naziv}} </h4> </a>
                     <cl-image  public-id="{{oglas.slika1}}" class="img-thumbnail" id="slika_oglasa"></cl-image>
                     <div class="oglas_mini">
                         <div class="oglas_tip">Tip oglasa: {{oglas.tip_oglasa}}</div>
@@ -53,7 +54,7 @@
                         <div class="oglas_datum">Oglas objavljen: {{oglas.datum_objave | date:"dd/MM/yyyy"}}</div>                            
                     </div>
                     <div class="oglas_cijena">{{oglas.cijena}} KM</div>
-                    <a href="" class="oglas_detaljnije">Pogledaj detaljnije</a>
+                   
                 </div>
             </div>
         </div>
