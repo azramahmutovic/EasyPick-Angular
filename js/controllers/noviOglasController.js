@@ -28,7 +28,7 @@ app.controller('OglasController', ['$http', '$window', '$log', '$location', 'Upl
               },
         }).progress(function(evt) {
           console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
-          $scope.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+          file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
         }).success(function(data, status, headers, config) {
           // file is uploaded successfully
           $window.localStorage.setItem('imageId'+[i].toString(), data.public_id);

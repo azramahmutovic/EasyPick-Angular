@@ -210,3 +210,22 @@ form .progress {
     margin-bottom: 10px;    
 }
 
+form .progressO {
+    line-height: 15px;
+    
+}
+
+.progressO {
+    display: inline-block;
+    width: 100px;
+    border: 3px groove #0066FF;
+    position: relative;
+    position: relative;    
+        
+}
+
+.progressO div {
+    font-size: smaller;
+    background: #00CCFF;
+    width: 0;
+}

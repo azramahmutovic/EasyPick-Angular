@@ -96,7 +96,11 @@
     				<ul>
         			<li ng-repeat="f in files" style="font:smaller">
             		{{f.name}}
-								
+							<br>
+								<span class="progressO" ng-show="f.progress >= 0">
+            			<div style="width:{{f.progress}}%" 
+              	ng-bind="f.progress + '%'"></div>
+          		</span>	
         			</li>
     				</ul>
 					<br>
